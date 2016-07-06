@@ -111,3 +111,14 @@ input[type=range].slider:focus::-ms-fill-upper {
   background: #fff2d7;
   width: 95%;
   display: none; }
+
+.hidden-input {
+  display: none; }
+
+.clickeable {
+  cursor: pointer; }
+
+.small-input {
+  position: relative;
+  z-index: 500;
+  width: 40px; }

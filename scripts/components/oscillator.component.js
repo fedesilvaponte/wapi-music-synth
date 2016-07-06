@@ -60,7 +60,10 @@ export default class Oscillator extends Component {
         this.setState({
             frequency: e.target.value
         });
-        this.oscillator.frequency.value = this.state.frequency;
+
+        if(this.oscillator) {
+            this.oscillator.frequency.value = this.state.frequency;
+        }
     }
 
     changeVolume(e) {
@@ -70,6 +73,26 @@ export default class Oscillator extends Component {
             volume: volume
         });
         this.gainNode.gain.value = volume / 100;
+    }
+
+    hideInput(e) {
+        let parentSpan = e.target.parentElement;
+        let children = parentSpan.parentElement.children;
+
+        children[0].style.display = 'none';
+        children[1].style.display = 'inline';
+    }
+
+    showInputEditor(e) {
+        let parentSpan = e.target.parentElement;
+        let children = parentSpan.parentElement.children;
+
+        children[0].style.display = 'block';
+        children[1].style.display = 'none';
+
+        setTimeout(function() {
+            children[0].focus();
+        }, 500)
     }
 
     changeType(type) {
@@ -129,7 +152,18 @@ export default class Oscillator extends Component {
                                max="3000"
                                value={this.state.frequency}
                                onChange={this.changeFrequency}/>
-                        <span>{this.state.frequency}Hz</span>
+                        <span className="clickeable" onClick={this.showInputEditor}>
+                            <span className="hidden-input">
+                                <input
+                                    value={this.state.frequency}
+                                    onChange={this.changeFrequency}
+                                    onBlur={this.hideInput}
+                                    type="text" className="small-input"/>
+                            </span>
+                            <span className="text">
+                                {this.state.frequency}Hz
+                            </span>
+                        </span>
                     </div>
                 </div>
                 <div className="btn-group">
