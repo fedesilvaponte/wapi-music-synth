@@ -7,7 +7,7 @@
     "start": "node server.js",
     "build": "BABEL_ENV=production ./node_modules/.bin/webpack --config webpack.config.production.js",
     "lint": "./node_modules/.bin/eslint .",
-    "sass": "node-sass --watch sass/main.scss css/main.css"
+    "sass": "node-sass --watch -r ./sass -o ./css"
   },
   "repository": {
     "type": "git",

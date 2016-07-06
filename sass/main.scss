@@ -1,3 +1,5 @@
+@import 'inputs';
+
 .btn {
   display: inline-block;
   padding: 5px;
@@ -10,6 +12,18 @@
 }
 .btn-group {
   margin: 10px;
+  .slider {
+    display: flex;
+    label {
+      vertical-align: super;
+      width: 70px;
+      padding-right: 10px;
+    }
+    > span {
+      vertical-align: bottom;
+      padding-left: 10px;
+    }
+  }
 }
 
 .app {
@@ -27,4 +41,5 @@
   padding: 10px;
   background: darken(floralwhite, 5%);
   width: 95%;
+  display: none;
 }
