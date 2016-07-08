@@ -11,11 +11,13 @@ export default class Oscillator extends Component {
 
         this.audioCtx = props.audioCtx;
         this.gainNode = this.audioCtx.createGain();
+        this.prevVolume;
 
         this.state = {
             frequency: 100,
             volume: 50,
             on: false,
+            muted: false,
             filters: [],
             types: [
                 {id: 'sine', active: true},
@@ -54,6 +56,13 @@ export default class Oscillator extends Component {
         this.oscillator.stop();
     }
 
+    mute = (e) => {
+        this.setState({ muted: !this.state.muted });
+        setTimeout(() => {
+            this.state.muted ? this.gainNode.gain.value = 0 : this.gainNode.gain.value = this.state.volume / 100;
+        }, 100);
+    }
+
     changeFrequency = (e) => {
         this.updateValues(e);
 
@@ -70,6 +79,7 @@ export default class Oscillator extends Component {
 
     changeVolume = (e) => {
         let volume = e.target.value;
+        this.state.muted = false;
 
         this.setState({
             volume: volume
@@ -140,11 +150,16 @@ export default class Oscillator extends Component {
             'selected': !this.state.on
         }));
 
+        let muteClass = classNames(_.extend(btnclass, {
+            'selected': this.state.muted
+        }));
+
         return (
             <div className="oscillator">
                 <div className="btn-group">
                     <span className={onClass} onClick={this.createOscillator}>On</span>
                     <span className={offClass} onClick={this.pause}>Off</span>
+                    <span className={muteClass} onClick={this.mute}>Mute</span>
                 </div>
                 <br/>
                 <div className="btn-group">
