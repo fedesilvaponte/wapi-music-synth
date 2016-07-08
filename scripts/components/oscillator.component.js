@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {createOscillator, hasClass, removeClass, addClass} from '../helpers';
 import classNames from 'classnames/bind';
 import _ from 'lodash';
+import SliderInput from './sliderInput';
+import BiquadFilter from './biquadFilter.component';
 
 export default class Oscillator extends Component {
     constructor(props) {
@@ -14,6 +16,7 @@ export default class Oscillator extends Component {
             frequency: 100,
             volume: 50,
             on: false,
+            filters: [],
             types: [
                 {id: 'sine', active: true},
                 {id: 'square', active: false},
@@ -23,14 +26,9 @@ export default class Oscillator extends Component {
         };
 
         this.oscillator;
-
-        this.createOscillator = this.createOscillator.bind(this);
-        this.changeFrequency = this.changeFrequency.bind(this);
-        this.changeVolume = this.changeVolume.bind(this);
-        this.pause = this.pause.bind(this);
     }
 
-    createOscillator(e) {
+    createOscillator = () => {
         this.setState({on: true});
 
         let activeType = _.head(_.filter(this.state.types, {active: true}));
@@ -51,22 +49,26 @@ export default class Oscillator extends Component {
 
     }
 
-    pause() {
+    pause = () => {
         this.setState({on: false});
         this.oscillator.stop();
     }
 
-    changeFrequency(e) {
-        this.setState({
-            frequency: e.target.value
-        });
+    changeFrequency = (e) => {
+        this.updateValues(e);
 
         if(this.oscillator) {
             this.oscillator.frequency.value = this.state.frequency;
         }
     }
 
-    changeVolume(e) {
+    updateValues = (e) => {
+        this.setState({
+            frequency: e.target.value
+        });
+    }
+
+    changeVolume = (e) => {
         let volume = e.target.value;
 
         this.setState({
@@ -75,15 +77,17 @@ export default class Oscillator extends Component {
         this.gainNode.gain.value = volume / 100;
     }
 
-    hideInput(e) {
+    hideInput = (e) => {
         let parentSpan = e.target.parentElement;
         let children = parentSpan.parentElement.children;
 
         children[0].style.display = 'none';
         children[1].style.display = 'inline';
+
+        this.changeFrequency(e);
     }
 
-    showInputEditor(e) {
+    showInputEditor = (e) => {
         let parentSpan = e.target.parentElement;
         let children = parentSpan.parentElement.children;
 
@@ -95,7 +99,13 @@ export default class Oscillator extends Component {
         }, 500)
     }
 
-    changeType(type) {
+    handleKeyUp = (e) => {
+        if(e.keyCode === 13) {
+            this.hideInput(e);
+        }
+    }
+
+    changeType = (type) => {
 
         var types = this.state.types.map((t) => {
             t.id === type ? t.active = true : t.active = false;
@@ -107,6 +117,16 @@ export default class Oscillator extends Component {
         if(this.oscillator) {
             this.oscillator.type = type;
         }
+    }
+
+    addFilter = () => {
+        this.setState({
+            filters: [{
+                name: 'filter',
+                frequency: 100,
+                q: 1
+            }]
+        });
     }
 
     render() {
@@ -144,27 +164,16 @@ export default class Oscillator extends Component {
                     })}
                 </div>
                 <div className="btn-group">
-                    <div className="slider">
-                        <label htmlFor="">frequency</label>
-                        <input type="range"
-                               className="frequency slider"
-                               min="100"
-                               max="3000"
-                               value={this.state.frequency}
-                               onChange={this.changeFrequency}/>
-                        <span className="clickeable" onClick={this.showInputEditor}>
-                            <span className="hidden-input">
-                                <input
-                                    value={this.state.frequency}
-                                    onChange={this.changeFrequency}
-                                    onBlur={this.hideInput}
-                                    type="text" className="small-input"/>
-                            </span>
-                            <span className="text">
-                                {this.state.frequency}Hz
-                            </span>
-                        </span>
-                    </div>
+                    <SliderInput
+                        label="frequency"
+                        changeFrequency={this.changeFrequency}
+                        value={this.state.frequency}
+                        updateValues={this.updateValues}
+                        handleKeyup={this.handleKeyUp}
+                        showInputEditor={this.showInputEditor}
+                        hideInput={this.hideInput}
+                        frequency={this.state.frequency}
+                    />
                 </div>
                 <div className="btn-group">
                     <div className="slider">
@@ -177,6 +186,12 @@ export default class Oscillator extends Component {
                                onChange={this.changeVolume}/>
                         <span>{this.state.volume}</span>
                     </div>
+                </div>
+                <a onClick={this.addFilter} className="add">Add Filter</a>
+                <div className="filters">
+                    {this.state.filters.map(function(f) {
+                        return <BiquadFilter frequency={f.frequency} />
+                    })}
                 </div>
                 <canvas className='canvas'></canvas>
             </div>
