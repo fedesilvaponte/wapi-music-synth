@@ -11,13 +11,13 @@ export default class Oscillator extends Component {
 
         this.audioCtx = props.audioCtx;
         this.gainNode = this.audioCtx.createGain();
-        this.prevVolume;
 
         this.state = {
-            frequency: 100,
+            frequency: this.props.keyPressed ? this.props.keyPressed.freq : 220,
             volume: 50,
+            keyName: '',
             on: false,
-            muted: false,
+            muted: this.props.muted,
             filters: [],
             types: [
                 {id: 'sine', active: true},
@@ -28,6 +28,34 @@ export default class Oscillator extends Component {
         };
 
         this.oscillator;
+        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        var gainReduction;
+        this.setState({
+            frequency: nextProps.keyPressed.freq,
+            keyName: nextProps.keyPressed.name,
+            muted: nextProps.muted
+        });
+
+        if(this.oscillator) {
+            this.oscillator.frequency.value = nextProps.keyPressed.freq;
+        }
+
+        if(nextProps.muted && this.props.keyPressed.freq === nextProps.keyPressed.freq) {
+            gainReduction = setInterval(() => {
+                if(this.gainNode.gain.value < 0.2) {
+                    this.gainNode.gain.value = 0;
+                    clearInterval(gainReduction)
+                }
+                this.gainNode.gain.value = this.gainNode.gain.value - 0.01;
+            }, 10)
+
+        } else {
+            clearInterval(gainReduction)
+            this.gainNode.gain.value = this.state.volume / 100;
+        }
     }
 
     createOscillator = () => {
@@ -39,15 +67,17 @@ export default class Oscillator extends Component {
             this.oscillator.stop();
         }
 
+
         this.oscillator = createOscillator({
             gainNode: this.gainNode,
             audioCtx: this.audioCtx,
             volume: this.state.volume,
             activeType: activeType.id,
-            frequency: this.state.frequency
+            frequency: this.state.frequency,
         });
 
         this.oscillator.start();
+        this.gainNode.gain.value = 0;
 
     }
 
@@ -79,12 +109,10 @@ export default class Oscillator extends Component {
 
     changeVolume = (e) => {
         let volume = e.target.value;
-        this.state.muted = false;
 
         this.setState({
             volume: volume
         });
-        this.gainNode.gain.value = volume / 100;
     }
 
     hideInput = (e) => {
@@ -160,6 +188,7 @@ export default class Oscillator extends Component {
                     <span className={onClass} onClick={this.createOscillator}>On</span>
                     <span className={offClass} onClick={this.pause}>Off</span>
                     <span className={muteClass} onClick={this.mute}>Mute</span>
+                    <div className="key-name">{this.state.keyName}</div>
                 </div>
                 <br/>
                 <div className="btn-group">

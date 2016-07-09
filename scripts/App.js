@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Oscillator from './components/oscillator.component';
+import PianoRoll from './components/pianoRoll.component';
 
 export default class App extends Component {
     constructor(props) {
@@ -7,14 +8,38 @@ export default class App extends Component {
         
         this.audioCtx = new (window.AudioContext || window.webkitAudioContext);
 
+        this.state = {
+            frequency: 440,
+            muted: true,
+            keyPressed: null
+        }
+
+    }
+
+
+    muteKey = () => {
+        this.setState({
+            frequency: this.state.frequency,
+            muted: true
+        });
+    }
+
+    setFreq = (key) => {
+       this.setState({
+           key: key,
+           muted: false
+       });
     }
 
     render() {
         return (
             <div className="app">
-                <Oscillator audioCtx={this.audioCtx}/>
-                <Oscillator audioCtx={this.audioCtx}/>
-                <Oscillator audioCtx={this.audioCtx}/>
+                <div className="oscillators">
+                    <Oscillator muted={this.state.muted} keyPressed={this.state.key} audioCtx={this.audioCtx}/>
+                    <Oscillator muted={this.state.muted} keyPressed={this.state.key} audioCtx={this.audioCtx}/>
+                    <Oscillator muted={this.state.muted} keyPressed={this.state.key} audioCtx={this.audioCtx}/>
+                </div>
+                <PianoRoll muteKey={this.muteKey} playKey={this.setFreq}/>
             </div>
         );
     }

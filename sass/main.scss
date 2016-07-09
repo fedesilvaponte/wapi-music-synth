@@ -1,4 +1,5 @@
 @import 'inputs';
+@import 'piano-roll';
 
 .btn {
   display: inline-block;
@@ -27,6 +28,8 @@
 }
 
 .app {
+}
+.oscillators {
   display: flex;
 }
 .oscillator {

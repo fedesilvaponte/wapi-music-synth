@@ -1,0 +1,78 @@
+$keywidth: 50px;
+
+.piano-roll {
+  display: flex;
+  .white {
+    border: 1px solid #333;
+    border-left: none;
+    &:first-child {
+      border-left: 1px solid #333;
+    }
+  }
+  .white {
+    background: #fff;
+    height: 200px;
+    width: $keywidth;
+    &.down {
+      background: #ededed;
+    }
+  }
+  .csharp, .dsharp, .fsharp, .gsharp, .asharp, .csharp2, .dsharp2, .fsharp2, .gsharp2, .asharp2,
+  .csharp3, .dsharp3, .fsharp3, .gsharp3, .asharp3
+  {
+    background: #333;
+    height: 120px;
+    box-shadow: 1px 1px 1px #000;
+    border: 1px solid #111;
+    width: $keywidth / 2;
+    position: absolute;
+    &.down {
+      background: #222;
+    }
+  }
+  .csharp {
+    left: $keywidth - 6;
+  }
+  .dsharp {
+    left: $keywidth * 2 - 3;
+  }
+  .fsharp {
+    left: $keywidth * 4;
+  }
+  .gsharp {
+    left: $keywidth * 5;
+  }
+  .asharp {
+    left: $keywidth * 6;
+  }
+  .csharp2 {
+    left: $keywidth * 8;
+  }
+  .dsharp2 {
+    left: $keywidth * 9;
+  }
+  .fsharp2 {
+    left: $keywidth * 11;
+  }
+  .gsharp2 {
+    left: $keywidth * 12;
+  }
+  .asharp2 {
+    left: $keywidth * 13;
+  }
+  .csharp3 {
+    left: $keywidth * 15;
+  }
+  .dsharp3 {
+    left: $keywidth * 16;
+  }
+  .fsharp3 {
+    left: $keywidth * 18;
+  }
+  .gsharp3 {
+    left: $keywidth * 19;
+  }
+  .asharp3 {
+    left: $keywidth * 20;
+  }
+}
