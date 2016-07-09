@@ -9,7 +9,7 @@ export default class App extends Component {
         this.audioCtx = new (window.AudioContext || window.webkitAudioContext);
 
         this.state = {
-            frequency: 440,
+            key: null,
             muted: true,
             keyPressed: null
         }

@@ -15,6 +15,7 @@ export default class Oscillator extends Component {
         this.state = {
             frequency: this.props.keyPressed ? this.props.keyPressed.freq : 220,
             volume: 50,
+            detune: 0,
             keyName: '',
             on: false,
             muted: this.props.muted,
@@ -31,8 +32,23 @@ export default class Oscillator extends Component {
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     }
 
+    gainInterval = (action) => {
+        if(action === 'start') {
+            this.gainReduction = setInterval(() => {
+                if(this.gainNode.gain.value < 0) {
+                    clearInterval(this.gainReduction)
+                    this.gainNode.gain.value = 0;
+                } else {
+                    this.gainNode.gain.value = this.gainNode.gain.value - 0.01;
+                }
+            }, 10)
+        } else {
+           clearInterval(this.gainReduction);
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
-        var gainReduction;
+        var gainReduction, gain;
         this.setState({
             frequency: nextProps.keyPressed.freq,
             keyName: nextProps.keyPressed.name,
@@ -44,16 +60,9 @@ export default class Oscillator extends Component {
         }
 
         if(nextProps.muted && this.props.keyPressed.freq === nextProps.keyPressed.freq) {
-            gainReduction = setInterval(() => {
-                if(this.gainNode.gain.value < 0.2) {
-                    this.gainNode.gain.value = 0;
-                    clearInterval(gainReduction)
-                }
-                this.gainNode.gain.value = this.gainNode.gain.value - 0.01;
-            }, 10)
-
+            this.gainInterval('start');
         } else {
-            clearInterval(gainReduction)
+            this.gainInterval('clear');
             this.gainNode.gain.value = this.state.volume / 100;
         }
     }
@@ -71,6 +80,7 @@ export default class Oscillator extends Component {
         this.oscillator = createOscillator({
             gainNode: this.gainNode,
             audioCtx: this.audioCtx,
+            detune: 0,
             volume: this.state.volume,
             activeType: activeType.id,
             frequency: this.state.frequency,
@@ -100,10 +110,17 @@ export default class Oscillator extends Component {
             this.oscillator.frequency.value = this.state.frequency;
         }
     }
+    detune = (e) => {
+        this.updateValues(e);
+
+        if(this.oscillator) {
+            this.oscillator.detune.value = this.state.detune;
+        }
+    }
 
     updateValues = (e) => {
         this.setState({
-            frequency: e.target.value
+            detune: e.target.value
         });
     }
 
@@ -187,8 +204,8 @@ export default class Oscillator extends Component {
                 <div className="btn-group">
                     <span className={onClass} onClick={this.createOscillator}>On</span>
                     <span className={offClass} onClick={this.pause}>Off</span>
-                    <span className={muteClass} onClick={this.mute}>Mute</span>
                     <div className="key-name">{this.state.keyName}</div>
+                    <div className="key-freq">{this.state.frequency}</div>
                 </div>
                 <br/>
                 <div className="btn-group">
@@ -209,14 +226,13 @@ export default class Oscillator extends Component {
                 </div>
                 <div className="btn-group">
                     <SliderInput
-                        label="frequency"
-                        changeFrequency={this.changeFrequency}
-                        value={this.state.frequency}
+                        label="Detune"
+                        change={this.detune}
+                        value={this.state.detune}
                         updateValues={this.updateValues}
                         handleKeyup={this.handleKeyUp}
                         showInputEditor={this.showInputEditor}
                         hideInput={this.hideInput}
-                        frequency={this.state.frequency}
                     />
                 </div>
                 <div className="btn-group">
