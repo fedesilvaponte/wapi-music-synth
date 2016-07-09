@@ -48,7 +48,6 @@ export default class Oscillator extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        var gainReduction, gain;
         this.setState({
             frequency: nextProps.keyPressed.freq,
             keyName: nextProps.keyPressed.name,
@@ -94,13 +93,6 @@ export default class Oscillator extends Component {
     pause = () => {
         this.setState({on: false});
         this.oscillator.stop();
-    }
-
-    mute = (e) => {
-        this.setState({ muted: !this.state.muted });
-        setTimeout(() => {
-            this.state.muted ? this.gainNode.gain.value = 0 : this.gainNode.gain.value = this.state.volume / 100;
-        }, 100);
     }
 
     changeFrequency = (e) => {
@@ -195,10 +187,6 @@ export default class Oscillator extends Component {
             'selected': !this.state.on
         }));
 
-        let muteClass = classNames(_.extend(btnclass, {
-            'selected': this.state.muted
-        }));
-
         return (
             <div className="oscillator">
                 <div className="btn-group">
@@ -250,7 +238,10 @@ export default class Oscillator extends Component {
                 <a onClick={this.addFilter} className="add">Add Filter</a>
                 <div className="filters">
                     {this.state.filters.map(function(f) {
-                        return <BiquadFilter frequency={f.frequency} />
+                        return <BiquadFilter
+                            frequency={f.frequency}
+
+                        />
                     })}
                 </div>
                 <canvas className='canvas'></canvas>

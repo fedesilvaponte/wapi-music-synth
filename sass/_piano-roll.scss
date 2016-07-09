@@ -10,18 +10,19 @@ $keywidth: 50px;
     }
   }
   .white {
-    background: #fff;
+    background: #f3f3f3;
     height: 200px;
     width: $keywidth;
     &.down {
-      background: #ededed;
+      background: #fff;
+      box-shadow: inset 1px 1px 1px #ccc;
     }
   }
   .csharp, .dsharp, .fsharp, .gsharp, .asharp, .csharp2, .dsharp2, .fsharp2, .gsharp2, .asharp2,
   .csharp3, .dsharp3, .fsharp3, .gsharp3, .asharp3
   {
     background: #333;
-    height: 120px;
+    height: 130px;
     box-shadow: 1px 1px 1px #000;
     border: 1px solid #111;
     width: $keywidth / 2;
@@ -73,6 +74,6 @@ $keywidth: 50px;
     left: $keywidth * 19 + 11;
   }
   .asharp3 {
-    left: $keywidth * 20 + 12;
+     left: $keywidth * 20 + 12;
   }
 }

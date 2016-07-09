@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {addClass, removeClass} from '../helpers';
 import _ from 'lodash';
 
-const keys = [
+const keys1 = [
     {name: 'C1', freq: 32.70, type: 'white'},
     {name: 'C#1', freq: 34.65, type: 'csharp'},
     {name: 'D1', freq: 36.71, type: 'white'},
@@ -41,25 +41,75 @@ const keys = [
     {name: 'B3', freq: 246.94, type: 'white'},
 ];
 
+const keys2 = [
+    {name: 'C4', freq: 261.63, type: 'white'},
+    {name: 'C#4', freq: 277.18, type: 'csharp'},
+    {name: 'D4', freq: 293.66, type: 'white'},
+    {name: 'D#4', freq: 311.13, type: 'dsharp'},
+    {name: 'E4', freq: 329.63, type: 'white'},
+    {name: 'F4', freq: 349.23, type: 'white'},
+    {name: 'F#4', freq: 369.99, type: 'fsharp'},
+    {name: 'G4', freq: 392.00, type: 'white'},
+    {name: 'G#4', freq: 415.30, type: 'gsharp'},
+    {name: 'A4', freq: 440.00, type: 'white'},
+    {name: 'A#4', freq: 466.16, type: 'asharp'},
+    {name: 'B4', freq: 493.88, type: 'white'},
+    {name: 'C4', freq: 523.25, type: 'white'},
+    {name: 'C#5', freq: 554.37, type: 'csharp2'},
+    {name: 'D5', freq: 587.33, type: 'white'},
+    {name: 'D#5', freq: 622.25, type: 'dsharp2'},
+    {name: 'E5', freq: 659.25, type: 'white'},
+    {name: 'F5', freq: 698.46, type: 'white'},
+    {name: 'F#5', freq: 739.99, type: 'fsharp2'},
+    {name: 'G5', freq: 783.99, type: 'white'},
+    {name: 'G#5', freq: 830.61, type: 'gsharp2'},
+    {name: 'A5', freq: 880.00, type: 'white'},
+    {name: 'A#5', freq: 932.33, type: 'asharp2'},
+    {name: 'B5', freq: 987.77, type: 'white'},
+    {name: 'C#', freq: 1046.50, type: 'white'},
+    {name: 'C#6', freq: 1108.73, type: 'csharp3'},
+    {name: 'D6', freq: 1174.66, type: 'white'},
+    {name: 'D#6', freq: 1244.51, type: 'dsharp3'},
+    {name: 'E6', freq: 1318.51, type: 'white'},
+    {name: 'F6', freq: 1396.91, type: 'white'},
+    {name: 'F#6', freq: 1479.98, type: 'fsharp3'},
+    {name: 'G6', freq: 1567.98, type: 'white'},
+    {name: 'G#6', freq: 1661.22, type: 'gsharp3'},
+    {name: 'A6', freq: 1760.00, type: 'white'},
+    {name: 'A#6', freq: 1864.66, type: 'asharp3'},
+    {name: 'B6', freq: 1975.53, type: 'white'},
+];
+
 let keyFired = false;
 
-const PianoRoll = (props) => {
-    const handleMouseDown = (e, key) => {
-        props.playKey(key);
+class PianoRoll extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            keys: keys1
+        }
+
+        document.body.addEventListener('keydown', _.debounce(this.handleKeydown, 100));
+        document.body.addEventListener('keyup', _.debounce(this.handleKeyup, 100));
+    }
+
+    handleMouseDown = (e, key) => {
+        this.props.playKey(key);
         console.log(key)
         if(e) {
             addClass(e.target, 'down');
         }
     }
 
-    const handleMouseUp = (e) => {
-        props.muteKey();
+    handleMouseUp = (e) => {
+        this.props.muteKey();
         if(e) {
             removeClass(e.target, 'down');
         }
     }
 
-    const handleKeydown = (e) => {
+    handleKeydown = (e) => {
         var currentKey;
         if(!keyFired) {
             keyFired = true;
@@ -68,38 +118,51 @@ const PianoRoll = (props) => {
                 case 'a':
                     currentKey = _.filter(keys, {name: 'C1'})
                     console.log(currentKey)
-                    handleMouseDown(null, currentKey[0]);
+                    this.handleMouseDown(null, currentKey[0]);
                     break;
                 case 'w':
                     currentKey = _.filter(keys, {name: 'C#1'})
                     console.log(currentKey)
-                    handleMouseDown(null, currentKey[0]);
+                    this.handleMouseDown(null, currentKey[0]);
                     break;
 
             }
         }
     };
-    const handleKeyup = (e) => {
+    handleKeyup = (e) => {
         keyFired = false;
-        handleMouseUp();
+        this.handleMouseUp();
     }
 
-    document.body.addEventListener('keydown', _.debounce(handleKeydown, 100));
-    document.body.addEventListener('keyup', _.debounce(handleKeyup, 100));
+    octaveUp = () => {
+        this.setState({keys: keys2});
+    }
+    octaveDown = () => {
+        this.setState({keys: keys1});
+    }
 
-   return(
-       <div className="piano-roll">
-           {keys.map((key) => {
-               return (
-                   <div
-                       onMouseDown={(e) => handleMouseDown(e, key)}
-                       onMouseUp={(e) => handleMouseUp(e)}
-                       className={key.type}
-                   ></div>
-               )
-           })}
-       </div>
-   )
+
+    render() {
+        return (
+            <div>
+                <div>
+                    <a className="btn" onClick={this.octaveDown}>Octave Down</a>
+                    <a className="btn" onClick={this.octaveUp}>Octave Up</a>
+                </div>
+                <div className="piano-roll">
+                    {this.state.keys.map((key) => {
+                        return (
+                            <div
+                                onMouseDown={(e) => this.handleMouseDown(e, key)}
+                                onMouseUp={(e) => this.handleMouseUp(e)}
+                                className={key.type}
+                            ></div>
+                        )
+                    })}
+                </div>
+            </div>
+        )
+    }
 }
 
 export default PianoRoll;

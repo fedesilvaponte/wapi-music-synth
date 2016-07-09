@@ -83,15 +83,16 @@ input[type=range].slider:focus::-ms-fill-upper {
     .piano-roll .white:first-child {
       border-left: 1px solid #333; }
   .piano-roll .white {
-    background: #fff;
+    background: #f3f3f3;
     height: 200px;
     width: 50px; }
     .piano-roll .white.down {
-      background: #ededed; }
+      background: #fff;
+      box-shadow: inset 1px 1px 1px #ccc; }
   .piano-roll .csharp, .piano-roll .dsharp, .piano-roll .fsharp, .piano-roll .gsharp, .piano-roll .asharp, .piano-roll .csharp2, .piano-roll .dsharp2, .piano-roll .fsharp2, .piano-roll .gsharp2, .piano-roll .asharp2,
   .piano-roll .csharp3, .piano-roll .dsharp3, .piano-roll .fsharp3, .piano-roll .gsharp3, .piano-roll .asharp3 {
     background: #333;
-    height: 120px;
+    height: 130px;
     box-shadow: 1px 1px 1px #000;
     border: 1px solid #111;
     width: 25px;
