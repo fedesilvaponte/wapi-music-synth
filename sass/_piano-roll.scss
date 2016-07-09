@@ -52,27 +52,27 @@ $keywidth: 50px;
     left: $keywidth * 9;
   }
   .fsharp2 {
-    left: $keywidth * 11;
+    left: $keywidth * 11 + 5;
   }
   .gsharp2 {
-    left: $keywidth * 12;
+    left: $keywidth * 12 + 5;
   }
   .asharp2 {
-    left: $keywidth * 13;
+    left: $keywidth * 13 + 7;
   }
   .csharp3 {
-    left: $keywidth * 15;
+    left: $keywidth * 15 + 9;
   }
   .dsharp3 {
-    left: $keywidth * 16;
+    left: $keywidth * 16 + 9;
   }
   .fsharp3 {
-    left: $keywidth * 18;
+    left: $keywidth * 18 + 11;
   }
   .gsharp3 {
-    left: $keywidth * 19;
+    left: $keywidth * 19 + 11;
   }
   .asharp3 {
-    left: $keywidth * 20;
+    left: $keywidth * 20 + 12;
   }
 }
