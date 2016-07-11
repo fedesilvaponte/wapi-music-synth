@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {createOscillator, hasClass, removeClass, addClass} from '../helpers';
 import classNames from 'classnames/bind';
 import _ from 'lodash';
 import SliderInput from './sliderInput';
 import BiquadFilter from './biquadFilter.component';
 
-export default class Oscillator extends Component {
+class Oscillator extends Component {
     constructor(props) {
         super(props);
 
@@ -249,3 +249,10 @@ export default class Oscillator extends Component {
         )
     }
 }
+
+Oscillator.propTypes = {
+    audioCtx: PropTypes.object.isRequired,
+    muted: PropTypes.bool,
+    keyPressed: PropTypes.object,
+}
+export default Oscillator;

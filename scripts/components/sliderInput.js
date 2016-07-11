@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 const SliderInput = (props) => {
     return (
@@ -10,7 +10,7 @@ const SliderInput = (props) => {
                    max="100"
                    value={props.value}
                    onChange={props.change}/>
-                        <span className="clickeable" onClick={props.showInputEditor}>
+            <span className="clickeable" onClick={props.showInputEditor}>
                             <span className="hidden-input">
                                 <input
                                     value={props.value}
@@ -26,4 +26,15 @@ const SliderInput = (props) => {
         </div>
     )
 }
+
+SliderInput.propTypes = {
+    value: PropTypes.number.isRequired,
+    change: PropTypes.func.isRequired,
+    showInputEditor: PropTypes.func.isRequired,
+    updateValues: PropTypes.func.isRequired,
+    handleKeyUp: PropTypes.func.isRequired,
+    hideInput: PropTypes.func.isRequired,
+    label: PropTypes.string.isRequired
+}
+
 export default SliderInput;

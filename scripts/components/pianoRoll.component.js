@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {addClass, removeClass} from '../helpers';
 import _ from 'lodash';
 
@@ -117,12 +117,10 @@ class PianoRoll extends Component {
             switch(e.key) {
                 case 'a':
                     currentKey = _.filter(keys, {name: 'C1'})
-                    console.log(currentKey)
                     this.handleMouseDown(null, currentKey[0]);
                     break;
                 case 'w':
                     currentKey = _.filter(keys, {name: 'C#1'})
-                    console.log(currentKey)
                     this.handleMouseDown(null, currentKey[0]);
                     break;
 
@@ -153,6 +151,7 @@ class PianoRoll extends Component {
                     {this.state.keys.map((key) => {
                         return (
                             <div
+                                key={key.freq}
                                 onMouseDown={(e) => this.handleMouseDown(e, key)}
                                 onMouseUp={(e) => this.handleMouseUp(e)}
                                 className={key.type}
@@ -163,6 +162,11 @@ class PianoRoll extends Component {
             </div>
         )
     }
+}
+
+PianoRoll.propTypes = {
+    muteKey: PropTypes.func.isRequired,
+   playKey: PropTypes.func.isRequired
 }
 
 export default PianoRoll;

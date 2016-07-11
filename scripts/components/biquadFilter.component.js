@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import SliderInput from './sliderInput';
 
-export default class BiquadFilter extends Component {
+class BiquadFilter extends Component {
     constructor(props) {
         super(props);
 
@@ -21,3 +21,15 @@ export default class BiquadFilter extends Component {
         )
     }
 }
+
+BiquadFilter.propTypes = {
+    value: PropTypes.number.isRequired,
+    change: PropTypes.func.isRequired,
+    showInputEditor: PropTypes.func.isRequired,
+    updateValues: PropTypes.func.isRequired,
+    handleKeyUp: PropTypes.func.isRequired,
+    hideInput: PropTypes.func.isRequired,
+    label: PropTypes.string.isRequired
+}
+
+export default BiquadFilter;
