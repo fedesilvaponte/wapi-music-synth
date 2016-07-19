@@ -76,7 +76,13 @@ input[type=range].slider:focus::-ms-fill-upper {
   background: #fffff0; }
 
 .piano-roll {
-  display: flex; }
+  display: flex;
+  margin: 0 auto;
+  width: 1110px;
+  position: fixed;
+  bottom: 0;
+  left: 20px;
+  right: 20px; }
   .piano-roll .white {
     border: 1px solid #333;
     border-left: none; }
@@ -101,7 +107,7 @@ input[type=range].slider:focus::-ms-fill-upper {
     .piano-roll .csharp3.down, .piano-roll .dsharp3.down, .piano-roll .fsharp3.down, .piano-roll .gsharp3.down, .piano-roll .asharp3.down {
       background: #222; }
   .piano-roll .csharp {
-    left: 44px; }
+    left: 40px; }
   .piano-roll .dsharp {
     left: 97px; }
   .piano-roll .fsharp {

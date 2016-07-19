@@ -2,6 +2,12 @@ $keywidth: 50px;
 
 .piano-roll {
   display: flex;
+  margin: 0 auto;
+  width: 1110px;
+  position: fixed;
+  bottom: 0;
+  left: 20px;
+  right: 20px;
   .white {
     border: 1px solid #333;
     border-left: none;
@@ -32,7 +38,7 @@ $keywidth: 50px;
     }
   }
   .csharp {
-    left: $keywidth - 6;
+    left: $keywidth - 10;
   }
   .dsharp {
     left: $keywidth * 2 - 3;

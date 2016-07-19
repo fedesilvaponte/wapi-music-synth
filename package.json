@@ -1,5 +1,5 @@
 {
-  "name": "WebSynth",
+  "name": "FSPWebSynth",
   "version": "1.0.0",
   "description": "Syntheziser",
   "main": "index.js",
@@ -19,7 +19,7 @@
     "babel",
     "webpack"
   ],
-  "author": "Vasanth Krishnamoorthy (http://www.vasanthk.com)",
+  "author": "Federico Silva Ponte (http://www.fedesilva.me)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/vasanthk/react-es6-webpack-boilerplate/issues"
