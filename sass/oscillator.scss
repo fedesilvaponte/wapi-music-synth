@@ -7,3 +7,12 @@
   border: 1px solid darken(floralwhite, 5%);
   box-shadow: 1px 1px 2px desaturate(darken(floralwhite, 5%), 70%);
 }
+.on-of-container {
+  position: absolute;
+  left: 0;
+  top: -20px;
+  background: floralwhite;
+  .btn {
+    padding: 5px 30px;
+  }
+}

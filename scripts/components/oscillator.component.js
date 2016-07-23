@@ -190,7 +190,7 @@ class Oscillator extends Component {
 
         return (
             <div className="oscillator">
-                <div className="btn-group">
+                <div className="btn-group on-of-container">
                     <span className={onClass} onClick={this.createOscillator}>On</span>
                     <span className={offClass} onClick={this.pause}>Off</span>
                 </div>
