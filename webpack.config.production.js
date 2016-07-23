@@ -41,32 +41,32 @@
 /* eslint-disable no-var */
 var webpack = require('webpack');
 var path = require('path');
+var _ = require('lodash');
 
-var prodConfig = require('./webpack.config.js');
+var devConfig = require('./webpack.config.js');
 
-prodConfig.plugins = [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.DefinePlugin({
-        'process.env': {
-            'NODE_ENV': JSON.stringify('production')
-        }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-        compress: {
-            warnings: false
-        }
-    })
-];
-prodConfig.devtool = 'source-map';
-prodConfig.entry = './scripts/index';
-prodConfig.output = {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/'
-};
-
-module.exports = prodConfig;
-
+module.exports = _.extend(devConfig, {
+    plugins: [
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        })
+    ],
+    devtool: 'source-map',
+    entry: './scripts/index',
+    output: {
+        path: path.join(__dirname, 'dist'),
+        filename: 'bundle.js',
+        publicPath: '/'
+    }
+});
 
 
 
