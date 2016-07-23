@@ -4,19 +4,19 @@ import _ from 'lodash';
 import '../../sass/piano-roll.scss';
 
 const keys1 = [
-    {name: 'C1', freq: 32.70, type: 'white'},
-    {name: 'C#1', freq: 34.65, type: 'csharp'},
-    {name: 'D1', freq: 36.71, type: 'white'},
-    {name: 'D#1', freq: 38.89, type: 'dsharp'},
-    {name: 'E1', freq: 41.20, type: 'white'},
-    {name: 'F1', freq: 43.65, type: 'white'},
-    {name: 'F#1', freq: 46.25, type: 'fsharp'},
-    {name: 'G1', freq: 49.00, type: 'white'},
-    {name: 'G#1', freq: 51.91, type: 'gsharp'},
-    {name: 'A1', freq: 55.00, type: 'white'},
-    {name: 'A#1', freq: 58.27, type: 'asharp'},
-    {name: 'B1', freq: 61.74, type: 'white'},
-    {name: 'C2', freq: 65.41, type: 'white'},
+    {name: 'C1', freq: 32.70, type: 'white', keyboard: 'a'},
+    {name: 'C#1', freq: 34.65, type: 'csharp', keyboard: 'w'},
+    {name: 'D1', freq: 36.71, type: 'white', keyboard: 's'},
+    {name: 'D#1', freq: 38.89, type: 'dsharp', keyboard: 'e'},
+    {name: 'E1', freq: 41.20, type: 'white', keyboard: 'd'},
+    {name: 'F1', freq: 43.65, type: 'white', keyboard: 'f'},
+    {name: 'F#1', freq: 46.25, type: 'fsharp', keyboard: 't'},
+    {name: 'G1', freq: 49.00, type: 'white', keyboard: 'g'},
+    {name: 'G#1', freq: 51.91, type: 'gsharp', keyboard: 'y'},
+    {name: 'A1', freq: 55.00, type: 'white', keyboard: 'h'},
+    {name: 'A#1', freq: 58.27, type: 'asharp', keyboard: 'u'},
+    {name: 'B1', freq: 61.74, type: 'white', keyboard: 'j'},
+    {name: 'C2', freq: 65.41, type: 'white', keyboard: 'k'},
     {name: 'C#2', freq: 69.30, type: 'csharp2'},
     {name: 'D2', freq: 73.42, type: 'white'},
     {name: 'D#2', freq: 77.78, type: 'dsharp2'},
@@ -55,7 +55,7 @@ const keys2 = [
     {name: 'A4', freq: 440.00, type: 'white'},
     {name: 'A#4', freq: 466.16, type: 'asharp'},
     {name: 'B4', freq: 493.88, type: 'white'},
-    {name: 'C4', freq: 523.25, type: 'white'},
+    {name: 'C5', freq: 523.25, type: 'white'},
     {name: 'C#5', freq: 554.37, type: 'csharp2'},
     {name: 'D5', freq: 587.33, type: 'white'},
     {name: 'D#5', freq: 622.25, type: 'dsharp2'},
@@ -103,39 +103,70 @@ class PianoRoll extends Component {
             currentKey: key
         });
 
-        if(e) {
+        if (e) {
             addClass(e.target, 'down');
         }
     }
 
     handleMouseUp = (e) => {
         this.props.muteKey();
-        if(e) {
+        if (e) {
             removeClass(e.target, 'down');
         }
     }
 
+    filterKeys = (keys) => {
+        return _.filter(this.state.keys, (o) => {
+            return o.name === keys[0] || o.name === keys[1];
+
+        });
+    }
+
     handleKeydown = (e) => {
-        var currentKey;
-        if(!keyFired) {
+        let currentKey;
+        console.log(e, this.state.currentKey)
+        if (!keyFired) {
             keyFired = true;
 
-            switch(e.key) {
+            switch (e.key) {
                 case 'a':
-                    currentKey = _.filter(keys, {name: 'C1'})
+                    currentKey = this.filterKeys(['C1', 'C4']);
                     this.handleMouseDown(null, currentKey[0]);
                     break;
                 case 'w':
-                    currentKey = _.filter(keys, {name: 'C#1'})
+                    currentKey = this.filterKeys(['C#1', 'C#4']);
                     this.handleMouseDown(null, currentKey[0]);
                     break;
-
+                case 's':
+                    currentKey = this.filterKeys(['D1', 'D4']);
+                    this.handleMouseDown(null, currentKey[0]);
+                    break;
+                case 'e':
+                    currentKey = this.filterKeys(['D#1', 'D#4']);
+                    this.handleMouseDown(null, currentKey[0]);
+                    break;
+                case 'd':
+                    currentKey = this.filterKeys(['E1', 'E4']);
+                    this.handleMouseDown(null, currentKey[0]);
+                    break;
+                case 'f':
+                    currentKey = this.filterKeys(['F1', 'F4']);
+                    this.handleMouseDown(null, currentKey[0]);
+                    break;
+                case 't':
+                    currentKey = this.filterKeys(['F#1', 'F#4']);
+                    this.handleMouseDown(null, currentKey[0]);
+                    break;
+                case 'g':
+                    currentKey = this.filterKeys(['G1', 'G4']);
+                    this.handleMouseDown(null, currentKey[0]);
+                    break;
             }
         }
     };
     handleKeyup = (e) => {
-        keyFired = false;
         this.handleMouseUp();
+        keyFired = false;
     }
 
     octaveUp = () => {
@@ -177,7 +208,7 @@ class PianoRoll extends Component {
 
 PianoRoll.propTypes = {
     muteKey: PropTypes.func.isRequired,
-   playKey: PropTypes.func.isRequired
+    playKey: PropTypes.func.isRequired
 }
 
 export default PianoRoll;

@@ -41,6 +41,7 @@
 /* eslint-disable no-var */
 var webpack = require('webpack');
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var _ = require('lodash');
 
 var devConfig = require('./webpack.config.js');
@@ -57,6 +58,10 @@ module.exports = _.extend(devConfig, {
             compress: {
                 warnings: false
             }
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'static/index.html'
         })
     ],
     devtool: 'source-map',
@@ -64,7 +69,7 @@ module.exports = _.extend(devConfig, {
     output: {
         path: path.join(__dirname, 'dist'),
         filename: 'bundle.js',
-        publicPath: '/'
+        publicPath: './'
     }
 });
 

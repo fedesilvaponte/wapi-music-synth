@@ -43,6 +43,7 @@
 /* eslint-disable no-var */
 var webpack = require('webpack');
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: [
@@ -53,13 +54,17 @@ module.exports = {
     output: {
         path: __dirname,
         filename: 'bundle.js',
-        publicPath: '/static/'
+        publicPath: '/'
     },
     resolve: {
         extensions: ['', '.js']
     },
     devtool: 'eval-source-map',
     plugins: [
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'static/index.html'
+        }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()
     ],
