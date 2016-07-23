@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {addClass, removeClass} from '../helpers';
 import _ from 'lodash';
+import '../../sass/piano-roll.scss';
 
 const keys1 = [
     {name: 'C1', freq: 32.70, type: 'white'},

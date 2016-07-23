@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import _ from 'lodash';
 import SliderInput from './sliderInput';
 import BiquadFilter from './biquadFilter.component';
+import '../../sass/oscillator.scss';
 
 class Oscillator extends Component {
     constructor(props) {

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Oscillator from './components/oscillator.component';
 import PianoRoll from './components/pianoRoll.component';
+import '../sass/main.scss';
 
 export default class App extends Component {
     constructor(props) {
