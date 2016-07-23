@@ -1,5 +1,6 @@
 @import 'inputs';
 @import 'piano-roll';
+@import 'oscillator';
 
 .btn {
   display: inline-block;
@@ -31,14 +32,6 @@
 }
 .oscillators {
   display: flex;
-}
-.oscillator {
-  padding: 10px;
-  background: floralwhite;
-  width: 400px;
-  margin: 10px;
-  border: 1px solid darken(floralwhite, 5%);
-  box-shadow: 1px 1px 2px desaturate(darken(floralwhite, 5%), 70%);
 }
 
 .canvas {

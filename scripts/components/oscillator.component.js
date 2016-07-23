@@ -192,8 +192,6 @@ class Oscillator extends Component {
                 <div className="btn-group">
                     <span className={onClass} onClick={this.createOscillator}>On</span>
                     <span className={offClass} onClick={this.pause}>Off</span>
-                    <div className="key-name">{this.state.keyName}</div>
-                    <div className="key-freq">{this.state.frequency}</div>
                 </div>
                 <br/>
                 <div className="btn-group">

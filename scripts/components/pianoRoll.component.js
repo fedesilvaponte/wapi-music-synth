@@ -87,7 +87,8 @@ class PianoRoll extends Component {
         super(props);
 
         this.state = {
-            keys: keys1
+            keys: keys1,
+            currentKey: {}
         }
 
         document.body.addEventListener('keydown', _.debounce(this.handleKeydown, 100));
@@ -96,7 +97,11 @@ class PianoRoll extends Component {
 
     handleMouseDown = (e, key) => {
         this.props.playKey(key);
-        console.log(key)
+
+        this.setState({
+            currentKey: key
+        });
+
         if(e) {
             addClass(e.target, 'down');
         }
@@ -142,10 +147,15 @@ class PianoRoll extends Component {
 
     render() {
         return (
-            <div>
+            <div className="piano-roll-container">
                 <div>
-                    <a className="btn" onClick={this.octaveDown}>Octave Down</a>
-                    <a className="btn" onClick={this.octaveUp}>Octave Up</a>
+                    <div className="octave-buttons">
+                        <a className="btn" onClick={this.octaveDown}>Octave Down</a>
+                        <a className="btn" onClick={this.octaveUp}>Octave Up</a>
+                    </div>
+                    <div className="key-name">
+                        {this.state.currentKey.name} - {this.state.currentKey.freq}Hz
+                    </div>
                 </div>
                 <div className="piano-roll">
                     {this.state.keys.map((key) => {

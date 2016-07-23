@@ -75,14 +75,40 @@ input[type=range].slider:focus::-ms-fill-lower {
 input[type=range].slider:focus::-ms-fill-upper {
   background: #fffff0; }
 
-.piano-roll {
-  display: flex;
-  margin: 0 auto;
-  width: 1110px;
+.piano-roll-container {
+  position: relative;
   position: fixed;
   bottom: 0;
   left: 20px;
-  right: 20px; }
+  right: 20px;
+  width: 1070px;
+  margin: 0 auto 0;
+  padding-top: 70px;
+  background-color: floralwhite;
+  border: 2px solid #333;
+  border-bottom: none;
+  background: linear-gradient(floralwhite, #ffe4ae); }
+  .piano-roll-container .octave-buttons {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    width: 300px; }
+  .piano-roll-container .key-name {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    width: 100px;
+    text-align: center;
+    background: darksalmon;
+    color: darkslategrey;
+    padding: 10px;
+    font-size: 14px;
+    font-family: Monospaced;
+    box-shadow: inset 1px 1px 1px #111;
+    border: 1px solid #ffe9bd; }
+
+.piano-roll {
+  display: flex; }
   .piano-roll .white {
     border: 1px solid #333;
     border-left: none; }
@@ -137,6 +163,15 @@ input[type=range].slider:focus::-ms-fill-upper {
   .piano-roll .asharp3 {
     left: 1012px; }
 
+.oscillator {
+  position: relative;
+  padding: 10px;
+  background: floralwhite;
+  width: 400px;
+  margin: 10px;
+  border: 1px solid #fff2d7;
+  box-shadow: 1px 1px 2px #f1ede5; }
+
 .btn {
   display: inline-block;
   padding: 5px;
@@ -160,14 +195,6 @@ input[type=range].slider:focus::-ms-fill-upper {
 
 .oscillators {
   display: flex; }
-
-.oscillator {
-  padding: 10px;
-  background: floralwhite;
-  width: 400px;
-  margin: 10px;
-  border: 1px solid #fff2d7;
-  box-shadow: 1px 1px 2px #f1ede5; }
 
 .canvas {
   padding: 10px;

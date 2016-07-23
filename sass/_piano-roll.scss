@@ -1,13 +1,44 @@
 $keywidth: 50px;
 
-.piano-roll {
-  display: flex;
-  margin: 0 auto;
-  width: 1110px;
+.piano-roll-container {
+  position: relative;
   position: fixed;
   bottom: 0;
   left: 20px;
   right: 20px;
+  width: 1070px;
+  margin: 0 auto 0;
+  padding-top: 70px;
+  background-color: floralwhite;
+  border: 2px solid #333;
+  border-bottom: none;
+  background: linear-gradient(floralwhite, darken(floralwhite, 13%));
+
+  .octave-buttons {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    width: 300px;
+  }
+
+  .key-name {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    width: 100px;
+    text-align: center;
+    background: darksalmon;
+    color: darkslategrey;
+    padding: 10px;
+    font-size: 14px;
+    font-family: Monospaced;
+    box-shadow: inset 1px 1px 1px #111;
+    border: 1px solid darken(floralwhite, 10%);
+  }
+}
+
+.piano-roll {
+  display: flex;
   .white {
     border: 1px solid #333;
     border-left: none;
