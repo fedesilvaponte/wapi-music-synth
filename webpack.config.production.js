@@ -64,9 +64,6 @@ prodConfig.output = {
     filename: 'bundle.js',
     publicPath: '/'
 };
-prodConfig.resolve = {
-    extensions: ['', '.js']
-};
 
 module.exports = prodConfig;
 
