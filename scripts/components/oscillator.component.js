@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {createOscillator, hasClass, removeClass, addClass} from '../helpers';
 import classNames from 'classnames/bind';
-import _ from 'lodash';
 import SliderInput from './sliderInput';
 import BiquadFilter from './biquadFilter.component';
 import '../../sass/oscillator.scss';
@@ -19,7 +18,6 @@ class Oscillator extends Component {
             detune: 0,
             keyName: '',
             on: false,
-            muted: this.props.muted,
             filters: [],
             types: [
                 {id: 'sine', active: true},

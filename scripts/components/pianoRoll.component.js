@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {addClass, removeClass} from '../helpers';
+import {addClass, removeClass, handleKey} from '../helpers';
 import _ from 'lodash';
 import '../../sass/piano-roll.scss';
 
@@ -115,55 +115,14 @@ class PianoRoll extends Component {
         }
     }
 
-    filterKeys = (keys) => {
-        return _.filter(this.state.keys, (o) => {
-            return o.name === keys[0] || o.name === keys[1];
-
-        });
-    }
-
     handleKeydown = (e) => {
-        let currentKey;
-        console.log(e, this.state.currentKey)
-        if (!keyFired) {
-            keyFired = true;
+        handleKey(e.key, this.state.keys, currentKey => {
+            this.handleMouseDown(null, currentKey);
+        });
 
-            switch (e.key) {
-                case 'a':
-                    currentKey = this.filterKeys(['C1', 'C4']);
-                    this.handleMouseDown(null, currentKey[0]);
-                    break;
-                case 'w':
-                    currentKey = this.filterKeys(['C#1', 'C#4']);
-                    this.handleMouseDown(null, currentKey[0]);
-                    break;
-                case 's':
-                    currentKey = this.filterKeys(['D1', 'D4']);
-                    this.handleMouseDown(null, currentKey[0]);
-                    break;
-                case 'e':
-                    currentKey = this.filterKeys(['D#1', 'D#4']);
-                    this.handleMouseDown(null, currentKey[0]);
-                    break;
-                case 'd':
-                    currentKey = this.filterKeys(['E1', 'E4']);
-                    this.handleMouseDown(null, currentKey[0]);
-                    break;
-                case 'f':
-                    currentKey = this.filterKeys(['F1', 'F4']);
-                    this.handleMouseDown(null, currentKey[0]);
-                    break;
-                case 't':
-                    currentKey = this.filterKeys(['F#1', 'F#4']);
-                    this.handleMouseDown(null, currentKey[0]);
-                    break;
-                case 'g':
-                    currentKey = this.filterKeys(['G1', 'G4']);
-                    this.handleMouseDown(null, currentKey[0]);
-                    break;
-            }
-        }
+        if (!keyFired) { keyFired = true; }
     };
+
     handleKeyup = (e) => {
         this.handleMouseUp();
         keyFired = false;
