@@ -5,3 +5,4 @@ dist
 .idea
 .tern-project
 launch.json
+.vscode

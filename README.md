@@ -10,4 +10,4 @@ Open http://localhost:5000
 
 ### Live demo
 
-[http://fedesilva.me/synth/dist/]
+http://fedesilva.me/synth/dist/
