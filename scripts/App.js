@@ -17,7 +17,6 @@ export default class App extends Component {
 
     }
 
-
     muteKey = () => {
         this.setState({
             frequency: this.state.frequency,

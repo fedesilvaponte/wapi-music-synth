@@ -43,7 +43,7 @@ export function removeClass(el, className) {
  * @param { function } callback
  * @returns {*}
  */
-export function handleKey(keyPressed, keys, callback) {
+export function getKeyPressed(keyPressed, keys, callback) {
     let currentKey;
     switch (keyPressed) {
         case 'a':

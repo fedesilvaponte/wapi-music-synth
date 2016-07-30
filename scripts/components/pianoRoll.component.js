@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {addClass, removeClass, handleKey} from '../helpers';
+import {addClass, removeClass, getKeyPressed} from '../helpers';
 import _ from 'lodash';
 import '../../sass/piano-roll.scss';
 
@@ -96,7 +96,7 @@ class PianoRoll extends Component {
         document.body.addEventListener('keyup', _.debounce(this.handleKeyup, 100));
     }
 
-    handleMouseDown = (e, key) => {
+    handleKeyPlay = (e, key) => {
         this.props.playKey(key);
 
         this.setState({
@@ -108,7 +108,7 @@ class PianoRoll extends Component {
         }
     }
 
-    handleMouseUp = (e) => {
+    handleKeyStop = (e) => {
         this.props.muteKey();
         if (e) {
             removeClass(e.target, 'down');
@@ -116,15 +116,15 @@ class PianoRoll extends Component {
     }
 
     handleKeydown = (e) => {
-        handleKey(e.key, this.state.keys, currentKey => {
-            this.handleMouseDown(null, currentKey);
+        getKeyPressed(e.key, this.state.keys, currentKey => {
+            this.handleKeyPlay(null, currentKey);
         });
 
         if (!keyFired) { keyFired = true; }
     };
 
     handleKeyup = (e) => {
-        this.handleMouseUp();
+        this.handleKeyStop();
         keyFired = false;
     }
 
@@ -153,8 +153,8 @@ class PianoRoll extends Component {
                         return (
                             <div
                                 key={key.freq}
-                                onMouseDown={(e) => this.handleMouseDown(e, key)}
-                                onMouseUp={(e) => this.handleMouseUp(e)}
+                                onMouseDown={(e) => this.handleKeyPlay(e, key)}
+                                onMouseUp={(e) => this.handleKeyStop(e)}
                                 className={key.type}
                             ></div>
                         )
