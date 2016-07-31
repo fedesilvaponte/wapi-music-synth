@@ -13,7 +13,7 @@ export default class App extends Component {
             key: null,
             muted: true,
             keyPressed: null
-        }
+        };
 
     }
 

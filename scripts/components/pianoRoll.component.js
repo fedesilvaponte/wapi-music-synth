@@ -39,7 +39,7 @@ const keys1 = [
     {name: 'G#2', freq: 207.65, type: 'gsharp3'},
     {name: 'A3', freq: 220.00, type: 'white'},
     {name: 'A#2', freq: 233.08, type: 'asharp3'},
-    {name: 'B3', freq: 246.94, type: 'white'},
+    {name: 'B3', freq: 246.94, type: 'white'}
 ];
 
 const keys2 = [
@@ -78,7 +78,7 @@ const keys2 = [
     {name: 'G#6', freq: 1661.22, type: 'gsharp3'},
     {name: 'A6', freq: 1760.00, type: 'white'},
     {name: 'A#6', freq: 1864.66, type: 'asharp3'},
-    {name: 'B6', freq: 1975.53, type: 'white'},
+    {name: 'B6', freq: 1975.53, type: 'white'}
 ];
 
 let keyFired = false;
@@ -90,7 +90,7 @@ class PianoRoll extends Component {
         this.state = {
             keys: keys1,
             currentKey: {}
-        }
+        };
 
         document.body.addEventListener('keydown', _.debounce(this.handleKeydown, 100));
         document.body.addEventListener('keyup', _.debounce(this.handleKeyup, 100));
@@ -123,7 +123,7 @@ class PianoRoll extends Component {
         if (!keyFired) { keyFired = true; }
     };
 
-    handleKeyup = (e) => {
+    handleKeyup = () => {
         this.handleKeyStop();
         keyFired = false;
     }
@@ -157,17 +157,17 @@ class PianoRoll extends Component {
                                 onMouseUp={(e) => this.handleKeyStop(e)}
                                 className={key.type}
                             ></div>
-                        )
+                        );
                     })}
                 </div>
             </div>
-        )
+        );
     }
 }
 
 PianoRoll.propTypes = {
     muteKey: PropTypes.func.isRequired,
     playKey: PropTypes.func.isRequired
-}
+};
 
 export default PianoRoll;

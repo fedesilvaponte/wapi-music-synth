@@ -4,8 +4,6 @@ import SliderInput from './sliderInput';
 class BiquadFilter extends Component {
     constructor(props) {
         super(props);
-
-        console.log(props.frequency)
     }
     
     render() {
@@ -18,7 +16,7 @@ class BiquadFilter extends Component {
                 />
                 
             </div>
-        )
+        );
     }
 }
 
@@ -30,6 +28,6 @@ BiquadFilter.propTypes = {
     handleKeyUp: PropTypes.func.isRequired,
     hideInput: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired
-}
+};
 
 export default BiquadFilter;

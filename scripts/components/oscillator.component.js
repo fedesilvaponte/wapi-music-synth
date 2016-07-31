@@ -1,9 +1,10 @@
 import React, {Component, PropTypes} from 'react';
-import {createOscillator, hasClass, removeClass, addClass} from '../helpers';
+import {createOscillator} from '../helpers';
 import classNames from 'classnames/bind';
 import SliderInput from './sliderInput';
 import BiquadFilter from './biquadFilter.component';
 import '../../sass/oscillator.scss';
+import _ from 'lodash';
 
 class Oscillator extends Component {
     constructor(props) {
@@ -20,29 +21,27 @@ class Oscillator extends Component {
             on: false,
             filters: [],
             types: [
-                {id: 'sine', active: true},
-                {id: 'square', active: false},
-                {id: 'triangle', active: false},
-                {id: 'sawtooth', active: false},
+                { id: 'sine', active: true },
+                { id: 'square', active: false },
+                { id: 'triangle', active: false },
+                { id: 'sawtooth', active: false }
             ]
         };
-
-        this.oscillator;
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     }
 
     gainInterval = (action) => {
-        if(action === 'start') {
+        if (action === 'start') {
             this.gainReduction = setInterval(() => {
-                if(this.gainNode.gain.value < 0) {
-                    clearInterval(this.gainReduction)
+                if (this.gainNode.gain.value < 0) {
+                    clearInterval(this.gainReduction);
                     this.gainNode.gain.value = 0;
                 } else {
                     this.gainNode.gain.value = this.gainNode.gain.value - 0.01;
                 }
-            }, 10)
+            }, 10);
         } else {
-           clearInterval(this.gainReduction);
+            clearInterval(this.gainReduction);
         }
     }
 
@@ -53,11 +52,11 @@ class Oscillator extends Component {
             muted: nextProps.muted
         });
 
-        if(this.oscillator) {
+        if (this.oscillator) {
             this.oscillator.frequency.value = nextProps.keyPressed.freq;
         }
 
-        if(nextProps.muted && this.props.keyPressed.freq === nextProps.keyPressed.freq) {
+        if (nextProps.muted && this.props.keyPressed.freq === nextProps.keyPressed.freq) {
             this.gainInterval('start');
         } else {
             this.gainInterval('clear');
@@ -66,9 +65,9 @@ class Oscillator extends Component {
     }
 
     createOscillator = () => {
-        this.setState({on: true});
+        this.setState({ on: true });
 
-        let activeType = _.head(_.filter(this.state.types, {active: true}));
+        let activeType = _.head(_.filter(this.state.types, { active: true }));
 
         if (this.oscillator) {
             this.oscillator.stop();
@@ -81,7 +80,7 @@ class Oscillator extends Component {
             detune: 0,
             volume: this.state.volume,
             activeType: activeType.id,
-            frequency: this.state.frequency,
+            frequency: this.state.frequency
         });
 
         this.oscillator.start();
@@ -90,21 +89,21 @@ class Oscillator extends Component {
     }
 
     pause = () => {
-        this.setState({on: false});
+        this.setState({ on: false });
         this.oscillator.stop();
     }
 
     changeFrequency = (e) => {
         this.updateValues(e);
 
-        if(this.oscillator) {
+        if (this.oscillator) {
             this.oscillator.frequency.value = this.state.frequency;
         }
     }
     detune = (e) => {
         this.updateValues(e);
 
-        if(this.oscillator) {
+        if (this.oscillator) {
             this.oscillator.detune.value = this.state.detune;
         }
     }
@@ -140,27 +139,26 @@ class Oscillator extends Component {
         children[0].style.display = 'block';
         children[1].style.display = 'none';
 
-        setTimeout(function() {
+        setTimeout(function () {
             children[0].focus();
-        }, 500)
+        }, 500);
     }
 
     handleKeyUp = (e) => {
-        if(e.keyCode === 13) {
+        if (e.keyCode === 13) {
             this.hideInput(e);
         }
     }
 
     changeType = (type) => {
 
-        var types = this.state.types.map((t) => {
-            t.id === type ? t.active = true : t.active = false;
-            return t;
+        let types = this.state.types.map((t) => {
+            return t.id === type ? t.active = true : t.active = false;
         });
 
-        this.setState({types: types});
+        this.setState({ types: types });
 
-        if(this.oscillator) {
+        if (this.oscillator) {
             this.oscillator.type = type;
         }
     }
@@ -176,7 +174,7 @@ class Oscillator extends Component {
     }
 
     render() {
-        let btnclass = {btn: true};
+        let btnclass = { btn: true };
 
         let onClass = classNames(_.extend(btnclass, {
             'selected': this.state.on
@@ -200,14 +198,16 @@ class Oscillator extends Component {
                         let typeClass = classNames(_.extend(btnclass, {
                             'selected': type.active
                         }));
-                        return <span
-                            key={type.id}
-                            className={typeClass}
-                            onClick={() => this.changeType(type.id)}>
-                            {type.id}
-                        </span>
+                        return (
+                            <span
+                                key={type.id}
+                                className={typeClass}
+                                onClick={() => this.changeType(type.id) }>
+                                {type.id}
+                            </span>
+                        );
 
-                    })}
+                    }) }
                 </div>
                 <div className="btn-group">
                     <SliderInput
@@ -218,38 +218,38 @@ class Oscillator extends Component {
                         handleKeyup={this.handleKeyUp}
                         showInputEditor={this.showInputEditor}
                         hideInput={this.hideInput}
-                    />
+                        />
                 </div>
                 <div className="btn-group">
                     <div className="slider">
                         <label htmlFor="">Volume</label>
                         <input type="range"
-                               className="volume slider"
-                               min="0"
-                               max="100"
-                               value={this.state.volume}
-                               onChange={this.changeVolume}/>
+                            className="volume slider"
+                            min="0"
+                            max="100"
+                            value={this.state.volume}
+                            onChange={this.changeVolume}/>
                         <span>{this.state.volume}</span>
                     </div>
                 </div>
                 <a onClick={this.addFilter} className="add">Add Filter</a>
                 <div className="filters">
-                    {this.state.filters.map(function(f) {
-                        return <BiquadFilter
-                            frequency={f.frequency}
-
-                        />
-                    })}
+                    {this.state.filters.map(function (f) {
+                        return (
+                            <BiquadFilter frequency={f.frequency}/>
+                        );
+                    }) }
                 </div>
                 <canvas className='canvas'></canvas>
             </div>
-        )
+        );
     }
 }
 
 Oscillator.propTypes = {
     audioCtx: PropTypes.object.isRequired,
     muted: PropTypes.bool,
-    keyPressed: PropTypes.object,
-}
+    keyPressed: PropTypes.object
+};
+
 export default Oscillator;

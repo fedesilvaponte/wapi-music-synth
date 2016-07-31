@@ -24,8 +24,8 @@ const SliderInput = (props) => {
                             </span>
                         </span>
         </div>
-    )
-}
+    );
+};
 
 SliderInput.propTypes = {
     value: PropTypes.number.isRequired,
@@ -35,6 +35,6 @@ SliderInput.propTypes = {
     handleKeyUp: PropTypes.func.isRequired,
     hideInput: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired
-}
+};
 
 export default SliderInput;
