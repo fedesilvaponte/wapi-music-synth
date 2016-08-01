@@ -1,5 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import SliderInput from './sliderInput';
+import OnOffButtons from './onOffButtons.component';
 import '../../sass/effects.scss';
 
 class Delay extends Component {
@@ -10,7 +11,8 @@ class Delay extends Component {
 
         this.state = {
             feedback: 0.7,
-            delayTime: 0.5
+            delayTime: 0.5,
+            on: false
         }
 
         this.synthDelay.delayTime.value = 0.5;
@@ -23,10 +25,12 @@ class Delay extends Component {
 
     connect = () => {
         this.props.connect(this.synthDelay);
+        this.setState({on: true});
     }
 
     disconnect = () => {
         console.log('disconect');
+        this.setState({on: false});
     }
 
     handleFeedback = (e) => {
@@ -42,10 +46,7 @@ class Delay extends Component {
     render() {
         return (
             <div className="effect-box">
-                <div className="on-off-container">
-                    <span className="btn" onClick={this.connect}>On</span>
-                    <span className="btn" onClick={this.disconnect}>Off</span>
-                </div>
+                <OnOffButtons onHandler={this.connect} offHandler={this.disconnect} status={this.state.on}/>
                 <div className="btn-group">
                     <SliderInput range={[0, 100]}
                                  value={this.state.feedback * 100}

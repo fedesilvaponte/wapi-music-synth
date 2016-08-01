@@ -1,5 +1,16 @@
 @import 'inputs';
 
+.on-off-container {
+  position: absolute;
+  left: 0px;
+  top: -10px;
+  .btn {
+    padding: 5px 30px;
+    background: floralwhite;
+    border: 1px solid darken(floralwhite, 4%);
+    box-shadow: 1px 0px 5px darken(floralwhite, 70%);
+  }
+}
 .btn {
   display: inline-block;
   padding: 5px;

@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {createOscillator} from '../helpers';
 import classNames from 'classnames/bind';
 import SliderInput from './sliderInput';
+import OnOffButtons from './onOffButtons.component';
 import BiquadFilter from './biquadFilter.component';
 import '../../sass/oscillator.scss';
 import _ from 'lodash';
@@ -150,22 +151,9 @@ class Oscillator extends Component {
 
     render() {
         let btnclass = { btn: true };
-
-        let onClass = classNames(_.extend(btnclass, {
-            'selected': this.state.on
-        }));
-
-        let offClass = classNames(_.extend(btnclass, {
-            'selected': !this.state.on
-        }));
-
         return (
             <div className="oscillator">
-                <div className="btn-group on-off-container">
-                    <span className={onClass} onClick={this.createOscillator}>On</span>
-                    <span className={offClass} onClick={this.pause}>Off</span>
-                </div>
-                <br/>
+                <OnOffButtons onHandler={this.createOscillator} offHandler={this.pause} status={this.state.on}/>
                 <div className="btn-group">
                     <p>Oscillator Type</p>
 
