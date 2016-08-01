@@ -30,6 +30,7 @@ class Delay extends Component {
 
     disconnect = () => {
         console.log('disconect');
+        this.props.disconnect(this.synthDelay);
         this.setState({on: false});
     }
 

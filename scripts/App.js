@@ -36,6 +36,11 @@ export default class App extends Component {
        });
     }
 
+    disconnectDelay = node => {
+        this.masterGain.disconnect(node);
+        node.disconnect(this.audioCtx.destination);
+    }
+
     connectDelay = (node) => {
         this.masterGain.connect(node);
         node.connect(this.audioCtx.destination);
@@ -56,7 +61,7 @@ export default class App extends Component {
                 </div>
                 <div className="container-rack">
                     <h1 className="title">Effects Rack</h1>
-                    <Delay audioCtx={this.audioCtx} connect={this.connectDelay}/>
+                    <Delay audioCtx={this.audioCtx} connect={this.connectDelay} disconnect={this.disconnectDelay}/>
                 </div>
                 <PianoRoll muteKey={this.muteKey} playKey={this.setFreq}/>
             </div>
