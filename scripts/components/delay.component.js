@@ -46,6 +46,9 @@ class Delay extends Component {
     render() {
         return (
             <div className="effect-box">
+                <div className="effects-title">
+                    <h1>DELAY</h1>
+                </div>
                 <OnOffButtons onHandler={this.connect} offHandler={this.disconnect} status={this.state.on}/>
                 <div className="btn-group">
                     <SliderInput range={[0, 100]}

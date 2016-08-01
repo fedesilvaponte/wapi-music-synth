@@ -1,9 +1,31 @@
 $background: darken(floralwhite, 5%);
+$height: 100px;
 
 .effect-box {
-  padding: 20px;
+  padding: 20px 20px 20px 35px;
   margin: 10px;
   position: relative;
   background: $background;
-  width: 340px;
+  width: 315px;
+  height: $height;
+  .effects-title {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    height: 100%;
+    background: floralwhite;
+    background: #3071a9;
+    border-right: 1px dashed darken($background, 10%);
+    h1 {
+      transform: rotate(-90deg);
+      position: relative;
+      bottom: -65px;
+      padding: 5px;
+      font-size: 18px;
+      color: #fff;
+      letter-spacing: 4;
+    }
+  }
 }
