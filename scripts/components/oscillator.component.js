@@ -20,7 +20,6 @@ class Oscillator extends Component {
             detune: 0,
             keyName: '',
             on: false,
-            filters: [],
             types: [
                 { id: 'sine', active: true },
                 { id: 'square', active: false },
@@ -87,7 +86,6 @@ class Oscillator extends Component {
 
         this.oscillator.start();
         this.gainNode.gain.value = 0;
-        // params.gainNode.connect(params.audioCtx.destination);
     }
 
     pause = () => {
@@ -194,14 +192,6 @@ class Oscillator extends Component {
                         <span>{this.state.volume}</span>
                     </div>
                 </div>
-                {/*<a onClick={this.addFilter} className="add">Add Filter</a>*/}
-                {/*<div className="filters">*/}
-                    {/*{this.state.filters.map(function (f) {*/}
-                        {/*return (*/}
-                            {/*<BiquadFilter frequency={f.frequency}/>*/}
-                        {/*);*/}
-                    {/*}) }*/}
-                {/*</div>*/}
                 <canvas className='canvas'></canvas>
             </div>
         );
