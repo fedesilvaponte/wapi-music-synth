@@ -73,19 +73,20 @@ class Oscillator extends Component {
             this.oscillator.stop();
         }
 
-
         this.oscillator = createOscillator({
-            gainNode: this.gainNode,
             audioCtx: this.audioCtx,
-            detune: 0,
-            volume: this.state.volume,
             activeType: activeType.id,
             frequency: this.state.frequency
         });
 
+        this.gainNode.gain.value = this.state.volume / 100;
+        this.oscillator.connect(this.gainNode);
+
+        this.props.connectOsc(this.gainNode);
+
         this.oscillator.start();
         this.gainNode.gain.value = 0;
-
+        // params.gainNode.connect(params.audioCtx.destination);
     }
 
     pause = () => {
@@ -122,38 +123,12 @@ class Oscillator extends Component {
         });
     }
 
-    hideInput = (e) => {
-        let parentSpan = e.target.parentElement;
-        let children = parentSpan.parentElement.children;
-
-        children[0].style.display = 'none';
-        children[1].style.display = 'inline';
-
-        this.changeFrequency(e);
-    }
-
-    showInputEditor = (e) => {
-        let parentSpan = e.target.parentElement;
-        let children = parentSpan.parentElement.children;
-
-        children[0].style.display = 'block';
-        children[1].style.display = 'none';
-
-        setTimeout(function () {
-            children[0].focus();
-        }, 500);
-    }
-
-    handleKeyUp = (e) => {
-        if (e.keyCode === 13) {
-            this.hideInput(e);
-        }
-    }
 
     changeType = (type) => {
 
         let types = this.state.types.map((t) => {
-            return t.id === type ? t.active = true : t.active = false;
+            t.id === type ? t.active = true : t.active = false;
+            return t;
         });
 
         this.setState({ types: types });
@@ -212,13 +187,11 @@ class Oscillator extends Component {
                 <div className="btn-group">
                     <SliderInput
                         label="Detune"
+                        changeFrequency={this.changeFrequency}
                         change={this.detune}
                         value={this.state.detune}
                         updateValues={this.updateValues}
-                        handleKeyup={this.handleKeyUp}
-                        showInputEditor={this.showInputEditor}
-                        hideInput={this.hideInput}
-                        />
+                    />
                 </div>
                 <div className="btn-group">
                     <div className="slider">
@@ -232,14 +205,14 @@ class Oscillator extends Component {
                         <span>{this.state.volume}</span>
                     </div>
                 </div>
-                <a onClick={this.addFilter} className="add">Add Filter</a>
-                <div className="filters">
-                    {this.state.filters.map(function (f) {
-                        return (
-                            <BiquadFilter frequency={f.frequency}/>
-                        );
-                    }) }
-                </div>
+                {/*<a onClick={this.addFilter} className="add">Add Filter</a>*/}
+                {/*<div className="filters">*/}
+                    {/*{this.state.filters.map(function (f) {*/}
+                        {/*return (*/}
+                            {/*<BiquadFilter frequency={f.frequency}/>*/}
+                        {/*);*/}
+                    {/*}) }*/}
+                {/*</div>*/}
                 <canvas className='canvas'></canvas>
             </div>
         );
@@ -249,7 +222,8 @@ class Oscillator extends Component {
 Oscillator.propTypes = {
     audioCtx: PropTypes.object.isRequired,
     muted: PropTypes.bool,
-    keyPressed: PropTypes.object
+    keyPressed: PropTypes.object,
+    connectOsc: PropTypes.func.isRequired
 };
 
 export default Oscillator;

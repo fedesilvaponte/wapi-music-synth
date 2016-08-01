@@ -8,6 +8,8 @@ export default class App extends Component {
         super(props);
         
         this.audioCtx = new (window.AudioContext || window.webkitAudioContext);
+        this.synthDelay = this.audioCtx.createDelay(5.0);
+        this.feedbackGain = this.audioCtx.createGain();
 
         this.state = {
             key: null,
@@ -31,13 +33,25 @@ export default class App extends Component {
        });
     }
 
+    connectOsc = (node) => {
+        this.feedbackGain.gain.value = 0.7;
+        this.synthDelay.delayTime.value = 0.5;
+
+        node.connect(this.synthDelay);
+        this.synthDelay.connect(this.feedbackGain);
+        this.feedbackGain.connect(this.synthDelay);
+
+        this.synthDelay.connect(this.audioCtx.destination);
+        node.connect(this.audioCtx.destination);
+    }
+
     render() {
         return (
             <div className="app">
                 <div className="oscillators">
-                    <Oscillator muted={this.state.muted} keyPressed={this.state.key} audioCtx={this.audioCtx}/>
-                    <Oscillator muted={this.state.muted} keyPressed={this.state.key} audioCtx={this.audioCtx}/>
-                    <Oscillator muted={this.state.muted} keyPressed={this.state.key} audioCtx={this.audioCtx}/>
+                    <Oscillator muted={this.state.muted} keyPressed={this.state.key} audioCtx={this.audioCtx} connectOsc={this.connectOsc}/>
+                    <Oscillator muted={this.state.muted} keyPressed={this.state.key} audioCtx={this.audioCtx} connectOsc={this.connectOsc}/>
+                    <Oscillator muted={this.state.muted} keyPressed={this.state.key} audioCtx={this.audioCtx} connectOsc={this.connectOsc}/>
                 </div>
                 <PianoRoll muteKey={this.muteKey} playKey={this.setFreq}/>
             </div>
