@@ -1,0 +1,13 @@
+$background: darken(floralwhite, 5%);
+
+.effect-box {
+  padding: 20px;
+  margin: 10px;
+  position: relative;
+  background: $background;
+  width: 340px;
+  .on-off-container {
+    top: -10px;
+    left: 10px;
+  }
+}

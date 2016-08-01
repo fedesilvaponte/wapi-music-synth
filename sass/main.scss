@@ -52,3 +52,20 @@
   z-index: 500;
   width: 40px;
 }
+
+.container-rack {
+  padding: 40px 0 10px;
+  background: repeating-linear-gradient(-95deg, rgba(51,34,21,.8) 3px, rgba(57,37,23,.8) 10px, rgba(62,42,23,.8) 4px, rgba(41, 28, 15, 0.8) 10px),
+  rgba(29, 12, 4,.9);
+  position: relative;
+  margin: 20px 0 40px;
+  border: 2px solid #000;
+  border-radius: 3px;
+  .title {
+    color: floralwhite;
+    position: absolute;
+    top: -40px;
+    left: 20px;
+    text-shadow: -1px -1px 1px #000, 1px 1px 2px #333;
+  }
+}

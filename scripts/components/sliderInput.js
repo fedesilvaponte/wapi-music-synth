@@ -27,7 +27,9 @@ const SliderInput = (props) => {
         children[0].style.display = 'none';
         children[1].style.display = 'inline';
 
-        props.changeFrequency(e);
+        if(props.changeFrequency) {
+            props.changeFrequency(e);
+        }
     };
 
     return (
@@ -35,8 +37,8 @@ const SliderInput = (props) => {
             <label htmlFor="">{props.label}</label>
             <input type="range"
                    className="frequency slider"
-                   min="0"
-                   max="100"
+                   min={props.range[0]}
+                   max={props.range[1]}
                    value={props.value}
                    onChange={props.change}/>
             <span className="clickeable" onClick={showInputEditor}>
@@ -49,7 +51,7 @@ const SliderInput = (props) => {
                         type="text" className="small-input"/>
                 </span>
                 <span className="text">
-                    {props.value}
+                    {props.value} {props.postfix}
                 </span>
             </span>
         </div>
@@ -59,9 +61,11 @@ const SliderInput = (props) => {
 SliderInput.propTypes = {
     value: PropTypes.number.isRequired,
     change: PropTypes.func.isRequired,
-    changeFrequency: PropTypes.func.isRequired,
-    updateValues: PropTypes.func.isRequired,
-    label: PropTypes.string.isRequired
+    changeFrequency: PropTypes.func,
+    updateValues: PropTypes.func,
+    label: PropTypes.string.isRequired,
+    range: PropTypes.array.isRequired,
+    postfix: PropTypes.string
 };
 
 export default SliderInput;

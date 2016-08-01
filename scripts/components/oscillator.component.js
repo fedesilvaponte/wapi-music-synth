@@ -161,7 +161,7 @@ class Oscillator extends Component {
 
         return (
             <div className="oscillator">
-                <div className="btn-group on-of-container">
+                <div className="btn-group on-off-container">
                     <span className={onClass} onClick={this.createOscillator}>On</span>
                     <span className={offClass} onClick={this.pause}>Off</span>
                 </div>
@@ -187,6 +187,7 @@ class Oscillator extends Component {
                 <div className="btn-group">
                     <SliderInput
                         label="Detune"
+                        range={[0,100]}
                         changeFrequency={this.changeFrequency}
                         change={this.detune}
                         value={this.state.detune}
