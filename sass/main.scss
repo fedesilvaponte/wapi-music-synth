@@ -63,6 +63,7 @@
 }
 
 .container-rack {
+  display: flex;
   padding: 40px 0 10px;
   background: repeating-linear-gradient(-95deg, rgba(51,34,21,.8) 3px, rgba(57,37,23,.8) 10px, rgba(62,42,23,.8) 4px, rgba(41, 28, 15, 0.8) 10px),
   rgba(29, 12, 4,.9);

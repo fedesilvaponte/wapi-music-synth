@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Oscillator from './components/oscillator.component';
 import PianoRoll from './components/pianoRoll.component';
 import Delay from './components/delay.component';
+import Compressor from './components/compressor.component';
 import '../sass/main.scss';
 
 export default class App extends Component {
@@ -46,6 +47,18 @@ export default class App extends Component {
         node.connect(this.audioCtx.destination);
     }
 
+    connectCompressor = (node) => {
+        this.masterGain.disconnect(this.audioCtx.destination);
+        this.masterGain.connect(node);
+        node.connect(this.audioCtx.destination);
+    }
+
+    disconnectCompressor = (node) => {
+        node.disconnect(this.audioCtx.destination);
+        this.masterGain.disconnect(node);
+        this.masterGain.connect(this.audioCtx.destination);
+    }
+
     connectOsc = (node) => {
         node.connect(this.masterGain);
     }
@@ -62,6 +75,7 @@ export default class App extends Component {
                 <div className="container-rack">
                     <h1 className="title">Effects Rack</h1>
                     <Delay audioCtx={this.audioCtx} connect={this.connectDelay} disconnect={this.disconnectDelay}/>
+                    <Compressor connect={this.connectCompressor} disconnect={this.disconnectCompressor} audioCtx={this.audioCtx}/>
                 </div>
                 <PianoRoll muteKey={this.muteKey} playKey={this.setFreq}/>
             </div>

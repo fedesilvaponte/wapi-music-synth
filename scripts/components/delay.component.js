@@ -73,6 +73,7 @@ class Delay extends Component {
 
 Delay.propTypes = {
     connect: PropTypes.func.isRequired,
+    disconnect: PropTypes.func.isRequired,
     audioCtx: PropTypes.object.isRequired
 };
 

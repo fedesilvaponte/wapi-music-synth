@@ -39,6 +39,7 @@ const SliderInput = (props) => {
                    className="frequency slider"
                    min={props.range[0]}
                    max={props.range[1]}
+                   step={props.step || 1}
                    value={props.value}
                    onChange={props.change}/>
             <span className="clickeable" onClick={showInputEditor}>
@@ -59,13 +60,15 @@ const SliderInput = (props) => {
 };
 
 SliderInput.propTypes = {
-    value: PropTypes.number.isRequired,
+    value: PropTypes.any.isRequired,
     change: PropTypes.func.isRequired,
     changeFrequency: PropTypes.func,
     updateValues: PropTypes.func,
     label: PropTypes.string.isRequired,
     range: PropTypes.array.isRequired,
-    postfix: PropTypes.string
+    postfix: PropTypes.string,
+    step: PropTypes.number
+
 };
 
 export default SliderInput;
