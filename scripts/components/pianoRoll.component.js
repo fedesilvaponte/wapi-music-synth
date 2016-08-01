@@ -67,7 +67,7 @@ const keys2 = [
     {name: 'A5', freq: 880.00, type: 'white'},
     {name: 'A#5', freq: 932.33, type: 'asharp2'},
     {name: 'B5', freq: 987.77, type: 'white'},
-    {name: 'C6, freq: 1046.50, type: 'white'},
+    {name: 'C6', freq: 1046.50, type: 'white'},
     {name: 'C#6', freq: 1108.73, type: 'csharp3'},
     {name: 'D6', freq: 1174.66, type: 'white'},
     {name: 'D#6', freq: 1244.51, type: 'dsharp3'},
