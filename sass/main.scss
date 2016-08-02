@@ -1,14 +1,21 @@
 @import 'inputs';
 
+body {
+  font-family: 'Lora', serif;
+  font-size: 14px;
+}
+
 .on-off-container {
   position: absolute;
-  right: 0px;
-  top: -10px;
+  right: -1px;
+  top: -21px;
+  background: floralwhite;
+  padding: 8px 3px 0 4px;
+  border-radius: 1px;
   .btn {
-    padding: 5px 30px;
-    background: floralwhite;
-    border: 1px solid darken(floralwhite, 4%);
-    box-shadow: 1px 0px 5px darken(floralwhite, 70%);
+    padding: 5px 10px;
+    background: darken(floralwhite, 5%);
+    border: 1px solid darken(floralwhite, 10%);
   }
 }
 .btn {

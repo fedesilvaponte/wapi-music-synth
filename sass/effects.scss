@@ -8,6 +8,10 @@ $height: 100px;
   background: $background;
   width: 315px;
   height: $height;
+  .on-off-container {
+    right: 0;
+    background: $background;
+  }
   .effects-title {
     position: absolute;
     left: 0;
