@@ -84,7 +84,6 @@ class Compressor extends Component {
                                  updateValues={this.handleKnee}
                                  label='Knee'/>
                 </div>
-                <span>{this.state.reduction}</span>
             </div>
         );
     }
