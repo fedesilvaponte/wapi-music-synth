@@ -78,18 +78,3 @@ export function getKeyPressed(keyPressed, keys, callback) {
     return callback(currentKey[0]);
 }
 
-/**
- *
- * @param {object} params
- * @returns {*}
- */
-export function createOscillator(params) {
-    let oscillator;
-
-    oscillator = params.audioCtx.createOscillator();
-    oscillator.type = params.activeType;
-    oscillator.frequency.value = params.frequency;
-
-    return oscillator;
-}
-

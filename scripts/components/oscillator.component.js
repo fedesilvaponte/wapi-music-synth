@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import {createOscillator} from '../helpers';
 import classNames from 'classnames/bind';
 import SliderInput from './sliderInput';
 import OnOffButtons from './onOffButtons.component';
@@ -10,9 +9,6 @@ import _ from 'lodash';
 class Oscillator extends Component {
     constructor(props) {
         super(props);
-
-        this.audioCtx = props.audioCtx;
-        this.gainNode = this.audioCtx.createGain();
 
         this.state = {
             frequency: this.props.keyPressed ? this.props.keyPressed.freq : 220,
@@ -28,7 +24,14 @@ class Oscillator extends Component {
             ]
         };
 
-        this.createOscillator();
+        this.oscillator = props.audioCtx.createOscillator();
+        this.gainNode = props.audioCtx.createGain();
+
+        this.oscillator.type = 'sine';
+        this.oscillator.frequency.value = this.state.frequency;
+
+        this.gainNode.gain.value = 0;
+        this.oscillator.start();
     }
 
     gainInterval = (action) => {
@@ -63,19 +66,6 @@ class Oscillator extends Component {
                 this.gainNode.gain.value = this.state.volume / 100;
             }
         }
-    }
-
-    createOscillator = () => {
-        let activeType = _.head(_.filter(this.state.types, {active: true}));
-
-        this.oscillator = createOscillator({
-            audioCtx: this.audioCtx,
-            activeType: activeType.id,
-            frequency: this.state.frequency
-        });
-
-        this.gainNode.gain.value = 0;
-        this.oscillator.start();
     }
 
     detune = (e) => {
