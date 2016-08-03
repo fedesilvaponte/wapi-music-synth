@@ -21,13 +21,14 @@ class Oscillator extends Component {
             keyName: '',
             on: false,
             types: [
-                { id: 'sine', active: true },
-                { id: 'square', active: false },
-                { id: 'triangle', active: false },
-                { id: 'sawtooth', active: false }
+                {id: 'sine', active: true},
+                {id: 'square', active: false},
+                {id: 'triangle', active: false},
+                {id: 'sawtooth', active: false}
             ]
         };
         this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+        this.createOscillator();
     }
 
     gainInterval = (action) => {
@@ -65,13 +66,7 @@ class Oscillator extends Component {
     }
 
     createOscillator = () => {
-        this.setState({ on: true });
-
-        let activeType = _.head(_.filter(this.state.types, { active: true }));
-
-        if (this.oscillator) {
-            this.oscillator.stop();
-        }
+        let activeType = _.head(_.filter(this.state.types, {active: true}));
 
         this.oscillator = createOscillator({
             audioCtx: this.audioCtx,
@@ -79,18 +74,9 @@ class Oscillator extends Component {
             frequency: this.state.frequency
         });
 
-        this.gainNode.gain.value = this.state.volume / 100;
         this.oscillator.connect(this.gainNode);
-
-        this.props.connectOsc(this.gainNode);
-
-        this.oscillator.start();
         this.gainNode.gain.value = 0;
-    }
-
-    pause = () => {
-        this.setState({ on: false });
-        this.oscillator.stop();
+        this.oscillator.start();
     }
 
     changeFrequency = (e) => {
@@ -124,17 +110,23 @@ class Oscillator extends Component {
 
 
     changeType = (type) => {
-
         let types = this.state.types.map((t) => {
             t.id === type ? t.active = true : t.active = false;
             return t;
         });
 
-        this.setState({ types: types });
+        this.setState({types: types});
+        this.oscillator.type = type;
+    }
 
-        if (this.oscillator) {
-            this.oscillator.type = type;
-        }
+    connect = () => {
+        this.setState({on: true});
+        this.props.connect(this.gainNode);
+    }
+
+    disconnect = () => {
+        this.setState({on: false});
+        this.props.disconnect(this.gainNode);
     }
 
     addFilter = () => {
@@ -148,10 +140,10 @@ class Oscillator extends Component {
     }
 
     render() {
-        let btnclass = { btn: true };
+        let btnclass = {btn: true};
         return (
             <div className="oscillator">
-                <OnOffButtons onHandler={this.createOscillator} offHandler={this.pause} status={this.state.on}/>
+                <OnOffButtons onHandler={this.connect} offHandler={this.disconnect} status={this.state.on}/>
                 <div className="btn-group">
                     <p>Oscillator Type</p>
 
@@ -173,7 +165,7 @@ class Oscillator extends Component {
                 <div className="btn-group">
                     <SliderInput
                         label="Detune"
-                        range={[0,100]}
+                        range={[0, 100]}
                         changeFrequency={this.changeFrequency}
                         change={this.detune}
                         value={this.state.detune}
@@ -184,11 +176,11 @@ class Oscillator extends Component {
                     <div className="slider">
                         <label htmlFor="">Volume</label>
                         <input type="range"
-                            className="volume slider"
-                            min="0"
-                            max="100"
-                            value={this.state.volume}
-                            onChange={this.changeVolume}/>
+                               className="volume slider"
+                               min="0"
+                               max="100"
+                               value={this.state.volume}
+                               onChange={this.changeVolume}/>
                         <span>{this.state.volume}</span>
                     </div>
                 </div>
@@ -202,7 +194,8 @@ Oscillator.propTypes = {
     audioCtx: PropTypes.object.isRequired,
     muted: PropTypes.bool,
     keyPressed: PropTypes.object,
-    connectOsc: PropTypes.func.isRequired
+    connect: PropTypes.func.isRequired,
+    disconnect: PropTypes.func.isRequired
 };
 
 export default Oscillator;

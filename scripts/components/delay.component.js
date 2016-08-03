@@ -17,13 +17,12 @@ class Delay extends Component {
 
         this.synthDelay.delayTime.value = 0.5;
         this.feedbackGain.gain.value = this.state.feedback;
-
-        this.synthDelay.connect(this.feedbackGain);
-        this.feedbackGain.connect(this.synthDelay);
     }
 
 
     connect = () => {
+        this.synthDelay.connect(this.feedbackGain);
+        this.feedbackGain.connect(this.synthDelay);
         this.props.connect(this.synthDelay);
         this.setState({on: true});
     }
