@@ -3,7 +3,7 @@ import {createOscillator} from '../helpers';
 import classNames from 'classnames/bind';
 import SliderInput from './sliderInput';
 import OnOffButtons from './onOffButtons.component';
-import BiquadFilter from './biquadFilter.component';
+// import BiquadFilter from './biquadFilter.component';
 import '../../sass/oscillator.scss';
 import _ from 'lodash';
 
@@ -74,7 +74,6 @@ class Oscillator extends Component {
             frequency: this.state.frequency
         });
 
-        this.oscillator.connect(this.gainNode);
         this.gainNode.gain.value = 0;
         this.oscillator.start();
     }
@@ -121,11 +120,13 @@ class Oscillator extends Component {
 
     connect = () => {
         this.setState({on: true});
+        this.oscillator.connect(this.gainNode);
         this.props.connect(this.gainNode);
     }
 
     disconnect = () => {
         this.setState({on: false});
+        this.oscillator.disconnect();
         this.props.disconnect(this.gainNode);
     }
 
