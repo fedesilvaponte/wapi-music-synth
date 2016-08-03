@@ -27,7 +27,7 @@ class Oscillator extends Component {
                 {id: 'sawtooth', active: false}
             ]
         };
-        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+
         this.createOscillator();
     }
 
@@ -47,21 +47,21 @@ class Oscillator extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            frequency: nextProps.keyPressed.freq,
-            keyName: nextProps.keyPressed.name,
-            muted: nextProps.muted
-        });
+        if (nextProps.keyPressed) {
+            this.setState({
+                frequency: nextProps.keyPressed.freq,
+                keyName: nextProps.keyPressed.name,
+                muted: nextProps.muted
+            });
 
-        if (this.oscillator) {
             this.oscillator.frequency.value = nextProps.keyPressed.freq;
-        }
 
-        if (nextProps.muted && this.props.keyPressed.freq === nextProps.keyPressed.freq) {
-            this.gainInterval('start');
-        } else {
-            this.gainInterval('clear');
-            this.gainNode.gain.value = this.state.volume / 100;
+            if (nextProps.muted && this.props.keyPressed.freq === nextProps.keyPressed.freq) {
+                this.gainInterval('start');
+            } else {
+                this.gainInterval('clear');
+                this.gainNode.gain.value = this.state.volume / 100;
+            }
         }
     }
 
@@ -78,25 +78,9 @@ class Oscillator extends Component {
         this.oscillator.start();
     }
 
-    changeFrequency = (e) => {
-        this.updateValues(e);
-
-        if (this.oscillator) {
-            this.oscillator.frequency.value = this.state.frequency;
-        }
-    }
     detune = (e) => {
-        this.updateValues(e);
-
-        if (this.oscillator) {
-            this.oscillator.detune.value = this.state.detune;
-        }
-    }
-
-    updateValues = (e) => {
-        this.setState({
-            detune: e.target.value
-        });
+        this.setState({detune: e.target.value});
+        this.oscillator.detune.value = this.state.detune;
     }
 
     changeVolume = (e) => {
@@ -106,7 +90,6 @@ class Oscillator extends Component {
             volume: volume
         });
     }
-
 
     changeType = (type) => {
         let types = this.state.types.map((t) => {
@@ -141,51 +124,45 @@ class Oscillator extends Component {
     }
 
     render() {
-        let btnclass = {btn: true};
+        const btnclass = {btn: true};
+        const typesList = this.state.types.map((type) => {
+            const typeClass = classNames(_.extend(btnclass, { 'selected': type.active }));
+
+            return (
+                <span
+                    key={type.id}
+                    className={typeClass}
+                    onClick={() => this.changeType(type.id) }>
+                    {type.id}
+                </span>
+            );
+        });
+
         return (
             <div className="oscillator">
-                <OnOffButtons onHandler={this.connect} offHandler={this.disconnect} status={this.state.on}/>
+                <OnOffButtons
+                    onHandler={this.connect}
+                    offHandler={this.disconnect}
+                    status={this.state.on}/>
                 <div className="btn-group">
                     <p>Oscillator Type</p>
-
-                    {this.state.types.map((type) => {
-                        let typeClass = classNames(_.extend(btnclass, {
-                            'selected': type.active
-                        }));
-                        return (
-                            <span
-                                key={type.id}
-                                className={typeClass}
-                                onClick={() => this.changeType(type.id) }>
-                                {type.id}
-                            </span>
-                        );
-
-                    }) }
+                    {typesList}
                 </div>
                 <div className="btn-group">
                     <SliderInput
                         label="Detune"
                         range={[0, 100]}
-                        changeFrequency={this.changeFrequency}
                         change={this.detune}
                         value={this.state.detune}
-                        updateValues={this.updateValues}
                     />
                 </div>
                 <div className="btn-group">
-                    <div className="slider">
-                        <label htmlFor="">Volume</label>
-                        <input type="range"
-                               className="volume slider"
-                               min="0"
-                               max="100"
-                               value={this.state.volume}
-                               onChange={this.changeVolume}/>
-                        <span>{this.state.volume}</span>
-                    </div>
+                    <SliderInput
+                        value={this.state.volume}
+                        change={this.changeVolume}
+                        label="Volume"
+                        range={[0, 100]}/>
                 </div>
-                <canvas className='canvas'></canvas>
             </div>
         );
     }

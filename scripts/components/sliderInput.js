@@ -26,10 +26,6 @@ const SliderInput = (props) => {
 
         children[0].style.display = 'none';
         children[1].style.display = 'inline';
-
-        if(props.changeFrequency) {
-            props.changeFrequency(e);
-        }
     };
 
     return (
@@ -46,7 +42,7 @@ const SliderInput = (props) => {
                 <span className="hidden-input">
                     <input
                         value={props.value}
-                        onChange={props.updateValues}
+                        onChange={props.change}
                         onBlur={hideInput}
                         onKeyUp={handleKeyUp}
                         type="text" className="small-input"/>
@@ -62,13 +58,10 @@ const SliderInput = (props) => {
 SliderInput.propTypes = {
     value: PropTypes.any.isRequired,
     change: PropTypes.func.isRequired,
-    changeFrequency: PropTypes.func,
-    updateValues: PropTypes.func,
     label: PropTypes.string.isRequired,
     range: PropTypes.array.isRequired,
     postfix: PropTypes.string,
     step: PropTypes.number
-
 };
 
 export default SliderInput;

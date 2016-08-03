@@ -65,7 +65,6 @@ class Compressor extends Component {
                     <SliderInput range={[-50, 0]}
                                  value={this.state.threshold}
                                  change={this.handleThreshold}
-                                 updateValues={this.handleThreshold}
                                  postfix='db'
                                  label='Threshold'/>
                 </div>
@@ -74,14 +73,12 @@ class Compressor extends Component {
                                  value={this.state.ratio}
                                  step={0.1}
                                  change={this.handleRatio}
-                                 updateValues={this.handleRatio}
                                  label='Ratio'/>
                 </div>
                 <div className="btn-group">
                     <SliderInput range={[0, 50]}
                                  value={this.state.knee}
                                  change={this.handleKnee}
-                                 updateValues={this.handleKnee}
                                  label='Knee'/>
                 </div>
             </div>

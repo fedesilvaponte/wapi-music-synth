@@ -54,14 +54,12 @@ class Delay extends Component {
                     <SliderInput range={[0, 100]}
                                  value={this.state.feedback * 100}
                                  change={this.handleFeedback}
-                                 updateValues={this.handleFeedback}
                                  label='Feedback'/>
                 </div>
                 <div className="btn-group">
                     <SliderInput range={[0, 3000]}
                                  value={this.state.delayTime * 1000}
                                  change={this.handleDelayTime}
-                                 updateValues={this.handleDelayTime}
                                  postfix='ms'
                                  label='Time'/>
                 </div>
