@@ -114,7 +114,10 @@ export default class App extends Component {
                 </div>
                 <div className="container-rack">
                     <h1 className="title">Effects Rack</h1>
-                    <Compressor connect={this.connectCompressor} disconnect={this.disconnectCompressor} audioCtx={this.audioCtx}/>
+                    <Compressor
+                        connect={this.connectCompressor}
+                        disconnect={this.disconnectCompressor}
+                        audioCtx={this.audioCtx}/>
                     <Delay audioCtx={this.audioCtx} connect={this.connectDelay} disconnect={this.disconnectDelay}/>
                 </div>
                 <PianoRoll muteKey={this.muteKey} playKey={this.setFreq}/>

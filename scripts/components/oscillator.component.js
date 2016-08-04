@@ -83,7 +83,12 @@ class Oscillator extends Component {
 
     changeType = (type) => {
         let types = this.state.types.map((t) => {
-            t.id === type ? t.active = true : t.active = false;
+            if(t.id === type) {
+                t.active = true;
+            } else {
+                t.active = false
+            }
+
             return t;
         });
 

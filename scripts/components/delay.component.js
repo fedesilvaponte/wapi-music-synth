@@ -13,7 +13,7 @@ class Delay extends Component {
             feedback: 0.7,
             delayTime: 0.5,
             on: false
-        }
+        };
 
         this.synthDelay.delayTime.value = 0.5;
         this.feedbackGain.gain.value = this.state.feedback;

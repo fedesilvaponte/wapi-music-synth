@@ -14,7 +14,7 @@ class Compressor extends Component {
             knee: 40,
             reduction: 0,
             on: false
-        }
+        };
 
         this.comp.threshold.value = this.state.threshold;
         this.comp.ratio.value = this.state.ratio;
@@ -29,11 +29,10 @@ class Compressor extends Component {
 
         this.reductionInterval = setInterval(() => {
             this.setState({reduction: this.comp.reduction});
-        }, 500)
+        }, 500);
     }
 
     disconnect = () => {
-        console.log('disconect compressor');
         this.props.disconnect(this.comp);
         this.setState({on: false});
         clearInterval(this.reductionInterval);
@@ -88,6 +87,7 @@ class Compressor extends Component {
 
 Compressor.propTypes = {
     connect: PropTypes.func.isRequired,
+    disconnect: PropTypes.func.isRequired,
     audioCtx: PropTypes.object.isRequired
 };
 
