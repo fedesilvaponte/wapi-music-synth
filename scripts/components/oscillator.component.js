@@ -86,7 +86,7 @@ class Oscillator extends Component {
             if(t.id === type) {
                 t.active = true;
             } else {
-                t.active = false
+                t.active = false;
             }
 
             return t;

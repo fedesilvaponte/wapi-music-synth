@@ -57,6 +57,11 @@ body {
 
 .hidden-input {
   display: none;
+  input {
+    width: 30px;
+    height: 15px;
+    padding: 5px 2px;
+  }
 }
 
 .clickeable {

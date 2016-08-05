@@ -9,23 +9,21 @@ const SliderInput = (props) => {
     };
 
     const showInputEditor = (e) => {
+        e.stopPropagation();
         let parentSpan = e.target.parentElement;
-        let children = parentSpan.parentElement.children;
+        let hiddenInput = parentSpan.nextSibling;
+        console.log(e.target.parentElement.nextSibling);
 
-        children[0].style.display = 'block';
-        children[1].style.display = 'none';
-
-        setTimeout(function () {
-            children[0].focus();
-        }, 500);
+        hiddenInput.style.display = 'inline';
+        parentSpan.style.display = 'none';
     };
 
     const hideInput = (e) => {
-        let parentSpan = e.target.parentElement;
-        let children = parentSpan.parentElement.children;
+        e.stopPropagation();
+        let parentSpan = e.target.parentElement.parentElement;
 
-        children[0].style.display = 'none';
-        children[1].style.display = 'inline';
+        e.target.parentElement.style.display = 'none';
+        parentSpan.childNodes[0].style.display = 'inline';
     };
 
     return (
@@ -38,17 +36,18 @@ const SliderInput = (props) => {
                    step={props.step || 1}
                    value={props.value}
                    onChange={props.change}/>
-            <span className="clickeable" onClick={showInputEditor}>
+            <span className="clickeable" >
+                <span className="text" onClick={showInputEditor}>
+                    {props.value} {props.postfix}
+                </span>
                 <span className="hidden-input">
                     <input
                         value={props.value}
                         onChange={props.change}
+                        onMouseLeave={hideInput}
                         onBlur={hideInput}
                         onKeyUp={handleKeyUp}
                         type="text" className="small-input"/>
-                </span>
-                <span className="text">
-                    {props.value} {props.postfix}
                 </span>
             </span>
         </div>
