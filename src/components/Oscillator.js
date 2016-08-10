@@ -1,10 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames/bind';
-import SliderInput from './sliderInput';
-import OnOffButtons from './onOffButtons.component';
-// import BiquadFilter from './biquadFilter.component';
-import '../../sass/oscillator.scss';
-import _ from 'lodash';
+import SliderInput from './SliderInput';
+import OnOffButtons from './OnOffButtons';
+import './oscillator.scss';
 
 class Oscillator extends Component {
     constructor(props) {

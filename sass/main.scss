@@ -5,19 +5,6 @@ body {
   font-size: 14px;
 }
 
-.on-off-container {
-  position: absolute;
-  right: -1px;
-  top: -21px;
-  background: floralwhite;
-  padding: 8px 3px 0 4px;
-  border-radius: 1px;
-  .btn {
-    padding: 5px 10px;
-    background: darken(floralwhite, 5%);
-    border: 1px solid darken(floralwhite, 10%);
-  }
-}
 .btn {
   display: inline-block;
   padding: 5px;
@@ -42,17 +29,6 @@ body {
       padding-left: 10px;
     }
   }
-}
-
-.oscillators {
-  display: flex;
-}
-
-.canvas {
-  padding: 10px;
-  background: darken(floralwhite, 5%);
-  width: 95%;
-  display: none;
 }
 
 .hidden-input {

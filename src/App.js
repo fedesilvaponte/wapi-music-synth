@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import Oscillator from './components/oscillator.component';
-import PianoRoll from './components/pianoRoll.component';
-import Delay from './components/delay.component';
-import Compressor from './components/compressor.component';
+import Oscillator from './components/Oscillator';
+import PianoRoll from './components/PianoRoll';
+import Delay from './components/Delay';
+import Compressor from './components/Compressor';
 import '../sass/main.scss';
 
 export default class App extends Component {

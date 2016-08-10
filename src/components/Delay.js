@@ -1,6 +1,6 @@
 import React, {PropTypes, Component} from 'react';
-import SliderInput from './sliderInput';
-import OnOffButtons from './onOffButtons.component';
+import SliderInput from './SliderInput';
+import OnOffButtons from './OnOffButtons';
 import '../../sass/effects.scss';
 
 class Delay extends Component {

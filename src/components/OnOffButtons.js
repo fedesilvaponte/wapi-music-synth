@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import classNames from 'classnames/bind';
-import _ from 'lodash';
+import './on-off-buttons.scss';
 
 const OnOffButtons = (props) => {
     let btnclass = { btn: true };

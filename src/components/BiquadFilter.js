@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import SliderInput from './sliderInput';
+import SliderInput from './SliderInput';
 
 class BiquadFilter extends Component {
     constructor(props) {

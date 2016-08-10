@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {addClass, removeClass, getKeyPressed} from '../helpers';
 import _ from 'lodash';
-import '../../sass/piano-roll.scss';
+import './piano-roll.scss';
 
 const keys1 = [
     {name: 'C1', freq: 32.70, type: 'white', keyboard: 'a'},
