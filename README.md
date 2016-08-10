@@ -12,4 +12,4 @@ Open http://localhost:5000
 
 ### Live demo
 
-http://fedesilva.me/synth/dist/
+http://web-audio-api-synth.surge.sh/
