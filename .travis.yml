@@ -8,6 +8,7 @@ notifications:
 node_js: 6
 script:
   - npm run build
-#after_success:
+after_success:
+  - surge --project ./dist --domain web-audio-api-synth.surge.sh
 #  - npm run report-coverage
 #  - npm run release

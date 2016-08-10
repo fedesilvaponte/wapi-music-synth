@@ -1,5 +1,7 @@
 # Music Synth created using React and the Web Audio Api
 
+[![Build Status](https://travis-ci.org/fedesilvaponte/wapi-music-synth.svg?branch=master)](https://travis-ci.org/fedesilvaponte/wapi-music-synth)
+
 ### Usage
 
 ```

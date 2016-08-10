@@ -48,6 +48,7 @@
     "react-transform-hmr": "^1.0.1",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
+    "surge": "0.18.0",
     "webpack": "^1.8.4",
     "webpack-dev-server": "^1.8.0"
   }
