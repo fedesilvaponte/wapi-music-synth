@@ -2,6 +2,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var _ = require('lodash');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var devConfig = require('./webpack.config.js');
 
@@ -17,6 +18,10 @@ module.exports = _.extend(devConfig, {
             compress: {
                 warnings: false
             }
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'src/index.html'
         })
     ],
     devtool: 'source-map',
