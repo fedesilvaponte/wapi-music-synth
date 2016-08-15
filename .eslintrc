@@ -39,5 +39,12 @@
   },
   "plugins": [
     "react"
-  ]
+  ],
+  "globals": {
+    "describe": false,
+    "it": false,
+    "expect": false,
+    "$on": false,
+    "beforeEach": false,
+  }
 }

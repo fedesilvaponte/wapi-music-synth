@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import SliderInput from './SliderInput';
 import OnOffButtons from './OnOffButtons';
 import './oscillator.scss';
+import _ from 'lodash';
 
 class Oscillator extends Component {
     constructor(props) {

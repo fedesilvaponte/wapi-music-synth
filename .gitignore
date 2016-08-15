@@ -6,3 +6,4 @@ dist
 .tern-project
 launch.json
 .vscode
+coverage

@@ -1,6 +1,7 @@
 /* eslint-disable no-var */
 var webpack = require('webpack');
 var path = require('path');
+var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -10,7 +11,7 @@ module.exports = {
         './src/index'
     ],
     output: {
-        path: __dirname,
+        path: path.resolve('/dist'),
         filename: 'bundle.js',
         publicPath: '/'
     },
