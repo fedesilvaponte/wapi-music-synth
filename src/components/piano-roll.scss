@@ -69,48 +69,48 @@ $keywidth: 50px;
     }
   }
   .csharp {
-    left: $keywidth - 10;
+    left: $keywidth - 13;
   }
   .dsharp {
-    left: $keywidth * 2 - 3;
+    left: $keywidth * 2 - 12;
   }
   .fsharp {
-    left: $keywidth * 4;
+    left: $keywidth * 4 - 10;
   }
   .gsharp {
-    left: $keywidth * 5;
+    left: $keywidth * 5 - 9;
   }
   .asharp {
-    left: $keywidth * 6;
+    left: $keywidth * 6 - 9;
   }
   .csharp2 {
-    left: $keywidth * 8;
+    left: $keywidth * 8 - 7;
   }
   .dsharp2 {
-    left: $keywidth * 9;
+    left: $keywidth * 9 - 6;
   }
   .fsharp2 {
-    left: $keywidth * 11 + 5;
+    left: $keywidth * 11 - 4;
   }
   .gsharp2 {
-    left: $keywidth * 12 + 5;
+    left: $keywidth * 12 - 2;
   }
   .asharp2 {
-    left: $keywidth * 13 + 7;
+    left: $keywidth * 13 - 1;
   }
   .csharp3 {
-    left: $keywidth * 15 + 9;
+    left: $keywidth * 15;
   }
   .dsharp3 {
-    left: $keywidth * 16 + 9;
+    left: $keywidth * 16 + 2;
   }
   .fsharp3 {
-    left: $keywidth * 18 + 11;
+    left: $keywidth * 18 + 3;
   }
   .gsharp3 {
-    left: $keywidth * 19 + 11;
+    left: $keywidth * 19 + 4;
   }
   .asharp3 {
-     left: $keywidth * 20 + 12;
+     left: $keywidth * 20 + 6;
   }
 }
