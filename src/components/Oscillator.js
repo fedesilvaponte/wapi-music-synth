@@ -56,7 +56,7 @@ class Oscillator extends Component {
                 muted: nextProps.muted
             });
 
-            this.oscillator.frequency.value = nextProps.keyPressed.freq;
+            this.oscillator.frequency.setValueAtTime(nextProps.keyPressed.freq, this.props.audioCtx.currentTime);
 
             if (nextProps.muted && this.props.keyPressed.freq === nextProps.keyPressed.freq) {
                 this.gainInterval('start');
