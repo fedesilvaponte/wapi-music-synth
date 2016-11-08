@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "babel-core": "6.14.0",
-    "babel-eslint": "6.1.2",
+    "babel-eslint": "7.0.0",
     "babel-loader": "6.2.5",
     "babel-plugin-__coverage__": "11.0.0",
     "babel-plugin-react-transform": "2.0.2",
