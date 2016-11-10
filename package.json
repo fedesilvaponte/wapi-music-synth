@@ -29,7 +29,7 @@
   "dependencies": {
     "babel-runtime": "6.11.6",
     "classnames": "2.2.5",
-    "lodash": "4.16.2",
+    "lodash": "4.16.6",
     "react": "15.3.2",
     "react-dom": "15.3.2"
   },
